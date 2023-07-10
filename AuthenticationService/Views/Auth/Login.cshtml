@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AuthenticationService.Model.LoginModel
+@{
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4">Welcome</h1>
+
+        <form asp-controller="Auth" asp-action="Login" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="text-lg-center">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="col-form-label">User Name</label>
+                    </div>
+                    <div class="col-4 float-right">
+                        <input type="text" asp-for="UserName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="col-form-label">Password</label>
+                    </div>
+                    <div class="col-4 float-right">
+                        <input type="text" asp-for="Password" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <button id="btnLogin" class="btn btn-danger">Login</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

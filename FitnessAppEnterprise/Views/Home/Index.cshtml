@@ -1,0 +1,36 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To FitnessTracker - @ViewData["userName"]</h1>
+    
+    <div class="row">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary">Workout Days</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h3>1</h3>
+                    <a asp-controller="Workout" asp-action="AddWorkout" class="btn btn-link">Add Workout</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary">Workout Days</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h3>1</h3>
+                    <a asp-controller="Workout" asp-action="AddWorkout"  class="btn btn-link">Add Workout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>

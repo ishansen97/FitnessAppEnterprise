@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model WorkoutViewModel
+@{
+}
+
+<div class="container">
+    <h1>Add Workout</h1>
+    <form asp-action="AddWorkout" method="post">
+        <div class="text-lg-center">
+            <div class="row">
+                <div class="col-4">
+                    <label for="ddlWorkoutType">Workout Types</label>
+                </div>
+                <div class="col-4 float-right">
+                    <select id="ddlWorkoutType">
+                        <option value=""></option>
+                        @foreach (var workoutType in Model.WorkoutTypes)
+                        {
+                            <option value="@workoutType.Id">@workoutType.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
