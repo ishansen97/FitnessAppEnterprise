@@ -1,28 +1,60 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using IdentityModel.Client
+@using System.Diagnostics
 @model WorkoutViewModel
 @{
+    var first = Guid.NewGuid();
+    var second = Guid.NewGuid();
 }
 
 <div class="container">
     <h1>Add Workout</h1>
+    <div class="text-lg-center">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Workout Types</label>
+            <div class="col-sm-5">
+                <form id="SelectionForm" asp-action="WorkoutTypeChanged" method="post">
+                    @Html.DropDownListFor(m => m.SelectedWorkoutType,
+                        Model.WorkoutTypes.Select(wk => new SelectListItem(wk.Name, wk.Id.ToString())),
+                        "",
+                        new { Class = "form-control", onchange = "HandleSelection()" })
+                </form>
+            </div>
+        </div>
+    </div>
     <form asp-action="AddWorkout" method="post">
         <div class="text-lg-center">
-            <div class="row">
-                <div class="col-4">
-                    <label for="ddlWorkoutType">Workout Types</label>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Date</label>
+                <div class="col-sm-5">
+                    <input type="date" asp-for="Created" class="form-control" 
+                           max="@DateTime.Today.ToString("MM/dd/yyyy")"/>
                 </div>
-                <div class="col-4 float-right">
-                    <select id="ddlWorkoutType">
-                        <option value=""></option>
-                        @foreach (var workoutType in Model.WorkoutTypes)
-                        {
-                            <option value="@workoutType.Id">@workoutType.Name</option>
-                        }
-                    </select>
+            </div>
+            @foreach (var field in Model.Fields)
+            {
+                <div class="form-group row">
+                    <label>@field.Key</label>
+                    @*@Html.LabelFor(wk => field.Key, field.Key, new { Class = "col-sm-4 col-form-label" })*@
+                    <div class="col-sm-4">
+                        <input type="text" name="@field.Key" value="@field.Value" />
+                        @*@Html.TextBoxFor(wk => field.Key, field.Value.ToString(), new { Class = "form-control random" })*@
+                    </div>
                 </div>
+            }
+            <input type="hidden" asp-for="SelectedWorkoutType" />
+            <div class="form-group text-center row">
+                <button id="btnAddWorkout" class="btn btn-success">Add</button>
             </div>
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    function HandleSelection() {
+        var form = document.getElementById("SelectionForm");
+        form.submit();
+    }
+</script>

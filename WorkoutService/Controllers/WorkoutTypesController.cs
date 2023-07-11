@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using WorkoutService.Entity;
 using WorkoutService.Entity.Enums;
+using WorkoutService.Model;
 using WorkoutService.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,9 +25,9 @@ namespace WorkoutService.Controllers
     }
 
     // GET: api/<WorkoutTypesController>
-    [HttpGet]
     [Authorize]
-    public IEnumerable<WorkoutTypeModel> Get()
+    [HttpGet]
+    public async Task<IEnumerable<WorkoutTypeModel>> Get()
     {
       var workoutTypes = _workoutHandler.GetWorkoutTypes();
       return workoutTypes;
@@ -34,9 +35,9 @@ namespace WorkoutService.Controllers
 
     // GET api/<WorkoutTypesController>/5
     [HttpGet("{id}")]
-    public string Get(int id)
+    public Dictionary<string, double> Get(int id)
     {
-      return "value";
+      return _workoutHandler.GetWorkoutTypeFields(id);
     }
 
     // POST api/<WorkoutTypesController>

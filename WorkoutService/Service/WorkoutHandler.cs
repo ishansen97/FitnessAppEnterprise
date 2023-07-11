@@ -5,14 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using WorkoutService.Entity;
 using WorkoutService.Entity.Enums;
+using WorkoutService.Helpers;
+using WorkoutService.Model;
 
 namespace WorkoutService.Service
 {
     public class WorkoutHandler
     {
-      public WorkoutHandler()
+      private readonly WorkoutTypeHelper _workoutTypeHelper;
+
+      public WorkoutHandler(WorkoutTypeHelper workoutTypeHelper)
       {
-        
+        _workoutTypeHelper = workoutTypeHelper;
       }
 
       public IEnumerable<WorkoutTypeModel> GetWorkoutTypes()
@@ -36,6 +40,11 @@ namespace WorkoutService.Service
       public IEnumerable<Workout> GetUserWorkouts(int userId)
       {
         return new List<Workout>();
+      }
+
+      public Dictionary<string, double> GetWorkoutTypeFields(int workoutTypeId)
+      {
+        return _workoutTypeHelper.GetFieldsForWorkoutType(workoutTypeId);
       }
     }
 }

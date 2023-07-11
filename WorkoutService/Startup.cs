@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using WorkoutService.Helpers;
 using WorkoutService.Service;
 
 namespace WorkoutService
@@ -32,8 +33,8 @@ namespace WorkoutService
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
-          //config.Authority = "https://localhost:44384";
-          //config.Audience = "APIWorkout";
+          config.Authority = "https://localhost:44384";
+          config.Audience = "APIWorkout";
           config.TokenValidationParameters = new TokenValidationParameters()
           {
             ValidateIssuer = true,
@@ -62,6 +63,7 @@ namespace WorkoutService
         });
       });
       services.AddScoped<WorkoutHandler>();
+      services.AddSingleton<WorkoutTypeHelper>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace FitnessAppEnterprise
 {
@@ -43,6 +44,8 @@ namespace FitnessAppEnterprise
           config.Scope.Add("offline_access");
         });
       services.AddHttpClient();
+      services.AddDistributedMemoryCache();
+      services.AddSession();
       services.AddControllersWithViews();
     }
 
@@ -66,6 +69,7 @@ namespace FitnessAppEnterprise
 
       app.UseAuthentication();
       app.UseAuthorization();
+      app.UseSession();
 
       app.UseEndpoints(endpoints =>
       {
