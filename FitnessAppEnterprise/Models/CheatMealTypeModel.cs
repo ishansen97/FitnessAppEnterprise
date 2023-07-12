@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessAppEnterprise.Models.Data
+namespace FitnessAppEnterprise.Models
 {
-  public class UserModel
+  public class CheatMealTypeModel
   {
     public int Id { get; set; }
+
+    public string Name { get; set; }
   }
 }

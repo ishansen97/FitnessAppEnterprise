@@ -13,7 +13,7 @@ namespace WorkoutService.Model
 
       public int SelectedWorkoutType { get; set; }
 
-      public int UserId { get; set; }
+      public string UserId { get; set; }
 
       public Dictionary<string, double> Fields { get; set; }
 

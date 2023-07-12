@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using FitnessAppEnterprise.Extensions;
@@ -44,6 +46,8 @@ namespace FitnessAppEnterprise.Controllers
       //var accessToken = await HttpContext.GetTokenAsync("access_token");
       //client.SetBearerToken(accessToken);
       //var response = await client.GetAsync("https://localhost:44379/api/workouttypes/");
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var userName = User.FindFirst(ClaimTypes.Email)?.Value;
 
       //var result = await response.Content.ReadAsStringAsync();
       //var models = JsonConvert.DeserializeObject<List<WorkoutTypeModel>>(result);
@@ -54,6 +58,7 @@ namespace FitnessAppEnterprise.Controllers
       {
         workoutModel = new WorkoutViewModel()
         {
+          UserId = userId,
           WorkoutTypes = models,
           Fields = new Dictionary<string, double>(),
           Created = DateTime.Today
@@ -73,7 +78,6 @@ namespace FitnessAppEnterprise.Controllers
       {
         var response = await _remoteService.PostDataAsync(EndpointType.Workout, model);
 
-        var result = await response.Content.ReadAsStringAsync();
         if (response.StatusCode == HttpStatusCode.OK)
         {
           return RedirectToAction("Index", "Home");

@@ -15,7 +15,7 @@ namespace WorkoutService.Service.Interfaces
 
     Dictionary<string, double> GetWorkoutTypeFields(int workoutTypeId);
 
-    Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(int userId);
+    Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(string userId);
 
     Task SaveWorkout(WorkoutModel model);
 

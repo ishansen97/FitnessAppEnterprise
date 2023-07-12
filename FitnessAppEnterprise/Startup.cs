@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using FitnessAppEnterprise.Helpers;
 using FitnessAppEnterprise.Services.Implementations;
 using FitnessAppEnterprise.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Http;
 
 namespace FitnessAppEnterprise
@@ -45,6 +46,7 @@ namespace FitnessAppEnterprise
           config.Scope.Add("APIWorkout");
           config.Scope.Add("APIPredictions");
           config.Scope.Add("offline_access");
+
         });
 
       services.AddHttpClient();

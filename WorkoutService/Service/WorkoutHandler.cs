@@ -50,7 +50,7 @@ namespace WorkoutService.Service
         return workoutTypeModels;
       }
 
-      public async Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(int userId)
+      public async Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(string userId)
       {
         var workouts = await _context.Workouts
                                                 .Where(wk => wk.UserId == userId)

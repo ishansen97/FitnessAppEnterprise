@@ -31,6 +31,13 @@ namespace FitnessAppEnterprise.Helpers
         case EndpointType.WeeklyViews:
           endpointUrl = "weeklyview";
           break;
+        case EndpointType.CheatMeals:
+          endpointUrl = "cheatmeal";
+          break;
+        case EndpointType.CheatMealTypes:
+          endpointUrl = "cheatmealtypes";
+          break;
+
       }
 
       return endpointUrl;

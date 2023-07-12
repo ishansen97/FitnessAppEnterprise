@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CheatMealViewModel
+@{
+    ViewData["title"] = "Add cheat meals";
+}
+
+<div class="container">
+    <h1>Add Workout</h1>
+    <div class="text-lg-center">
+    </div>
+    <form asp-action="CheatMealHome" method="post">
+        <div class="text-lg-center">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Cheat Meal Types</label>
+                <div class="col-sm-5">
+                    @Html.DropDownListFor(m => m.SelectedCheatMealType,
+                        Model.CheatMealTypes.Select(cm => new SelectListItem(cm.Name, cm.Id.ToString())),
+                        "",
+                        new { Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Date</label>
+                <div class="col-sm-5">
+                    <input type="date" name="Model.Created" class="form-control"
+                           max="@DateTime.Today"
+                           value="@Model.Created" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Meal Amount (g)</label>
+                <div class="col-sm-5">
+                    <input type="text" name="Model.MealAmount" value="@Model.MealAmount" />
+                </div>
+            </div>
+            <input type="hidden" name="Model.UserId" value="@Model.UserId" />
+            @*<input type="hidden" name="Model.SelectedCheatMealType" value="@Model.SelectedCheatMealType" />*@
+            <div class="form-group text-center row">
+                <button id="btnAddCheatMeal" class="btn btn-success">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+

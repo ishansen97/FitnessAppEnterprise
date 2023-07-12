@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AuthenticationService.Configurations;
@@ -27,6 +28,7 @@ namespace AuthenticationService.Data
         configurationDbContext.Database.Migrate();
 
         AddIdentityServerData(configurationDbContext);
+
 
         var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
         context.Database.Migrate();
@@ -63,6 +65,11 @@ namespace AuthenticationService.Data
       }
 
       await userManager.CreateAsync(user1ByEmail, "user@123");
+      //await userManager.AddClaimsAsync(user1ByEmail, new Claim[]
+      //{
+      //  new Claim(JwtClaimTypes.Name, user1ByEmail.FirstName),
+      //  new Claim(JwtClaimTypes.Id, user1ByEmail.Id),
+      //});
 
       var user2ByEmail = await userManager.FindByEmailAsync("johnWick@gmail.com");
       if (user2ByEmail == null)
@@ -80,6 +87,11 @@ namespace AuthenticationService.Data
       }
 
       await userManager.CreateAsync(user2ByEmail, "user@123");
+      //await userManager.AddClaimsAsync(user2ByEmail, new Claim[]
+      //{
+      //  new Claim(JwtClaimTypes.Name, user2ByEmail.FirstName),
+      //  new Claim(JwtClaimTypes.Id, user2ByEmail.Id),
+      //});
 
       /*else
       {
@@ -101,6 +113,7 @@ namespace AuthenticationService.Data
 
 
       }*/
+
       #endregion
 
     }

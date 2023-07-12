@@ -28,7 +28,7 @@ namespace WorkoutService.Controllers
     // GET: api/<WorkoutTypesController>
     [Authorize]
     [HttpGet]
-    public async Task<IEnumerable<WorkoutTypeModel>> Get()
+    public IEnumerable<WorkoutTypeModel> Get()
     {
       var workoutTypes = _workoutService.GetWorkoutTypes();
       return workoutTypes;

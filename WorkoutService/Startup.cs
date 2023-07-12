@@ -61,6 +61,7 @@ namespace WorkoutService
         });
       });
       services.AddScoped<IWorkoutService, WorkoutHandler>();
+      services.AddScoped<ICheatMealService, CheatMealService>();
       services.AddSingleton<WorkoutTypeHelper>();
       services.AddSingleton<WorkoutModelHelper>();
     }

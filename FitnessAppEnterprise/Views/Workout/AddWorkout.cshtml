@@ -2,7 +2,6 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @using IdentityModel.Client
-@using System.Diagnostics
 @model WorkoutViewModel
 @{
     var first = Guid.NewGuid();
@@ -29,8 +28,9 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Date</label>
                 <div class="col-sm-5">
-                    <input type="date" asp-for="Created" class="form-control" 
-                           max="@DateTime.Today.ToString("MM/dd/yyyy")"/>
+                    <input type="date" name="Model.Created" class="form-control" 
+                           max="@DateTime.Today"
+                           value="@Model.Created"/>
                 </div>
             </div>
             @foreach (var field in Model.Fields)
@@ -46,7 +46,8 @@
                     </div>
                 </div>
             }
-            <input type="hidden" asp-for="SelectedWorkoutType" />
+            <input type="hidden" name="Model.SelectedWorkoutType" value="@Model.SelectedWorkoutType" />
+            <input type="hidden" name="Model.UserId" value="@Model.UserId" />
             <div class="form-group text-center row">
                 <button id="btnAddWorkout" class="btn btn-success">Add</button>
             </div>
