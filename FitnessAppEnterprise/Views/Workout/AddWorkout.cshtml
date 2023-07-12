@@ -36,10 +36,12 @@
             @foreach (var field in Model.Fields)
             {
                 <div class="form-group row">
-                    <label>@field.Key</label>
+                    <label class="col-sm-4 col-form-label">@field.Key</label>
                     @*@Html.LabelFor(wk => field.Key, field.Key, new { Class = "col-sm-4 col-form-label" })*@
                     <div class="col-sm-4">
-                        <input type="text" name="@field.Key" value="@field.Value" />
+                        <input type="hidden" name="Model.Fields[@field.Key].Key" value="@field.Key" />
+                        <input type="text" name="Model.Fields[@field.Key].Value" value="@field.Value" class="form-control" />
+                        <input type="hidden" name="Model.Fields.Index" value="@field.Key" />
                         @*@Html.TextBoxFor(wk => field.Key, field.Value.ToString(), new { Class = "form-control random" })*@
                     </div>
                 </div>

@@ -7,10 +7,10 @@ using WorkoutService.Entity.Enums;
 
 namespace WorkoutService.Entity
 {
-    public class Workout : EntityBase
+    public class CheatMeal : EntityBase
     {
-      public WorkoutType WorkoutType { get; set; }
+      public MealType MealType { get; set; }
 
-      public string Fields { get; set; }
+      public double MealAmount { get; set; }
     }
 }

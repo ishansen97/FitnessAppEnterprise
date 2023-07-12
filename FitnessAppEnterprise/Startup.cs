@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FitnessAppEnterprise.Helpers;
+using FitnessAppEnterprise.Services.Implementations;
+using FitnessAppEnterprise.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace FitnessAppEnterprise
@@ -43,7 +46,11 @@ namespace FitnessAppEnterprise
           config.Scope.Add("APIPredictions");
           config.Scope.Add("offline_access");
         });
+
       services.AddHttpClient();
+      services.AddHttpContextAccessor();
+      services.AddScoped<IRemoteService, ApiService>();
+      services.AddSingleton<ModelHelper>();
       services.AddDistributedMemoryCache();
       services.AddSession();
       services.AddControllersWithViews();

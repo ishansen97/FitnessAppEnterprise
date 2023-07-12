@@ -11,9 +11,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using WorkoutService.Context;
 using WorkoutService.Helpers;
 using WorkoutService.Service;
+using WorkoutService.Service.Interfaces;
 
 namespace WorkoutService
 {
@@ -30,6 +33,10 @@ namespace WorkoutService
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddDbContext<WorkoutDbContext>(options =>
+      {
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
+      });
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
@@ -42,15 +49,6 @@ namespace WorkoutService
             ValidIssuer = "https://localhost:44384",
             ValidAudience = "APIWorkout",
           };
-
-          config.Events = new JwtBearerEvents()
-          {
-            OnMessageReceived = message =>
-            {
-              Console.WriteLine(message.Token);
-              return Task.CompletedTask;
-            }
-          };
         });
       services.AddCors(config =>
       {
@@ -62,8 +60,9 @@ namespace WorkoutService
           //p.AllowCredentials();
         });
       });
-      services.AddScoped<WorkoutHandler>();
+      services.AddScoped<IWorkoutService, WorkoutHandler>();
       services.AddSingleton<WorkoutTypeHelper>();
+      services.AddSingleton<WorkoutModelHelper>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

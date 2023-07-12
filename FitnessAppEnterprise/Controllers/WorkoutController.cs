@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using FitnessAppEnterprise.Extensions;
 using FitnessAppEnterprise.Models;
+using FitnessAppEnterprise.Models.Enums;
+using FitnessAppEnterprise.Services.Implementations;
+using FitnessAppEnterprise.Services.Interfaces;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -22,32 +27,38 @@ namespace FitnessAppEnterprise.Controllers
   public class WorkoutController : Controller
   {
     private readonly IHttpClientFactory _clientFactory;
+    private readonly IRemoteService _remoteService;
 
-    public WorkoutController(IHttpClientFactory clientFactory)
+    public WorkoutController(
+      IHttpClientFactory clientFactory,
+      IRemoteService remoteService)
     {
       _clientFactory = clientFactory;
+      _remoteService = remoteService;
     }
 
     [Authorize]
     public async Task<IActionResult> AddWorkout()
     {
-      var client = _clientFactory.CreateClient("workout_client");
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      client.SetBearerToken(accessToken);
-      var response = await client.GetAsync("https://localhost:44379/api/workouttypes/");
+      //var client = _clientFactory.CreateClient("workout_client");
+      //var accessToken = await HttpContext.GetTokenAsync("access_token");
+      //client.SetBearerToken(accessToken);
+      //var response = await client.GetAsync("https://localhost:44379/api/workouttypes/");
 
-      var result = await response.Content.ReadAsStringAsync();
-      var models = JsonConvert.DeserializeObject<List<WorkoutTypeModel>>(result);
+      //var result = await response.Content.ReadAsStringAsync();
+      //var models = JsonConvert.DeserializeObject<List<WorkoutTypeModel>>(result);
+      var models = await _remoteService.GetMultipleModelDataAsync<WorkoutTypeModel>(EndpointType.WorkoutTypes, HttpMethod.Get);
 
-      var workoutModel = new WorkoutViewModel()
+      var workoutModel = HttpContext.Session.GetObject<WorkoutViewModel>("workoutModel");
+      if (workoutModel == null)
       {
-        WorkoutTypes = models,
-        Fields = new Dictionary<string, double>(),
-        Created = DateTime.Today
-      };
-
-      ViewBag.WorkoutTypes = models;
-      ViewData["model"] = workoutModel;
+        workoutModel = new WorkoutViewModel()
+        {
+          WorkoutTypes = models,
+          Fields = new Dictionary<string, double>(),
+          Created = DateTime.Today
+        };
+      }
 
       HttpContext.Session.SetObject("workoutModel", workoutModel);
 
@@ -60,10 +71,16 @@ namespace FitnessAppEnterprise.Controllers
     {
       if (ModelState.IsValid)
       {
-        
+        var response = await _remoteService.PostDataAsync(EndpointType.Workout, model);
+
+        var result = await response.Content.ReadAsStringAsync();
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+          return RedirectToAction("Index", "Home");
+        }
       }
 
-      return View();
+      return View("Error");
     }
 
     [Authorize]
@@ -83,7 +100,13 @@ namespace FitnessAppEnterprise.Controllers
       workoutModel.SelectedWorkoutType = selectedValue;
       HttpContext.Session.SetObject("workoutModel", workoutModel);
 
-      return View("AddWorkout", workoutModel);
+      return RedirectToAction("AddWorkout");
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
   }
 }

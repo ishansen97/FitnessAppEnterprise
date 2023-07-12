@@ -13,6 +13,10 @@ namespace WorkoutService.Model
 
       public int SelectedWorkoutType { get; set; }
 
+      public int UserId { get; set; }
+
       public Dictionary<string, double> Fields { get; set; }
+
+      public DateTime Created { get; set; }
     }
 }

@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using WorkoutService.Model;
+using WorkoutService.Service.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,8 +13,16 @@ namespace WorkoutService.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [Authorize]
   public class WorkoutController : ControllerBase
   {
+    private readonly IWorkoutService _workoutService;
+
+    public WorkoutController(IWorkoutService workoutService)
+    {
+      _workoutService = workoutService;
+    }
+
     // GET: api/<WorkoutController>
     [HttpGet]
     public IEnumerable<string> Get()
@@ -21,21 +32,28 @@ namespace WorkoutService.Controllers
 
     // GET api/<WorkoutController>/5
     [HttpGet("{id}")]
-    public string Get(int id)
+    public async Task<WorkoutModel> Get(int id)
     {
-      return "value";
+      var workoutModel = await _workoutService.GetWorkoutModelAsync(id);
+      return workoutModel;
     }
 
     // POST api/<WorkoutController>
     [HttpPost]
-    public void Post([FromBody] string value)
+    [Route("add")]
+    public async Task<IActionResult> Post([FromBody] WorkoutModel model)
     {
+      if (model == null) return BadRequest();
+      await _workoutService.SaveWorkout(model);
+      return Ok();
     }
 
     // PUT api/<WorkoutController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    [HttpPut("update/{id}")]
+    public async Task<IActionResult> Put(int id, [FromBody] WorkoutModel model)
     {
+      await _workoutService.UpdateWorkoutAsync(id, model);
+      return Ok();
     }
 
     // DELETE api/<WorkoutController>/5

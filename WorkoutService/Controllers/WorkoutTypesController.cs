@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using WorkoutService.Entity.Enums;
 using WorkoutService.Model;
 using WorkoutService.Service;
+using WorkoutService.Service.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,11 +18,11 @@ namespace WorkoutService.Controllers
   [ApiController]
   public class WorkoutTypesController : ControllerBase
   {
-    private WorkoutHandler _workoutHandler;
+    private readonly IWorkoutService _workoutService;
 
-    public WorkoutTypesController(WorkoutHandler workoutHandler)
+    public WorkoutTypesController(IWorkoutService workoutService)
     {
-      _workoutHandler = workoutHandler;
+      _workoutService = workoutService;
     }
 
     // GET: api/<WorkoutTypesController>
@@ -29,15 +30,16 @@ namespace WorkoutService.Controllers
     [HttpGet]
     public async Task<IEnumerable<WorkoutTypeModel>> Get()
     {
-      var workoutTypes = _workoutHandler.GetWorkoutTypes();
+      var workoutTypes = _workoutService.GetWorkoutTypes();
       return workoutTypes;
     }
 
     // GET api/<WorkoutTypesController>/5
     [HttpGet("{id}")]
+    [Authorize]
     public Dictionary<string, double> Get(int id)
     {
-      return _workoutHandler.GetWorkoutTypeFields(id);
+      return _workoutService.GetWorkoutTypeFields(id);
     }
 
     // POST api/<WorkoutTypesController>
