@@ -22,5 +22,9 @@ namespace WorkoutService.Service.Interfaces
     Task UpdateWorkoutAsync(int id, WorkoutModel model);
 
     Task<WorkoutModel> GetWorkoutModelAsync(int id);
+
+    Task<int> GetWorkoutCountAsync(string userId);
+
+    Task<IEnumerable<DetailModel>> GetDetailModelsForUser(string userId);
   }
 }

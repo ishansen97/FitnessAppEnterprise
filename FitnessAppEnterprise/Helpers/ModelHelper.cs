@@ -32,7 +32,7 @@ namespace FitnessAppEnterprise.Helpers
           endpointUrl = "weeklyview";
           break;
         case EndpointType.CheatMeals:
-          endpointUrl = "cheatmeal";
+          endpointUrl = "cheatmeals";
           break;
         case EndpointType.CheatMealTypes:
           endpointUrl = "cheatmealtypes";

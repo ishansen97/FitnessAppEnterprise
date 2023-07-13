@@ -34,9 +34,7 @@ namespace FitnessAppEnterprise.Services.Implementations
     public async Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod)
     {
       var endpointUrl = CreateEndpoint(endpointType, httpMethod);
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      var client = HttpClientFactory.CreateClient();
-      client.SetBearerToken(accessToken);
+      var client = await InitializeHttpClient();
       var response = await client.GetAsync(endpointUrl);
 
       var result = await response.Content.ReadAsStringAsync();
@@ -48,9 +46,7 @@ namespace FitnessAppEnterprise.Services.Implementations
     public async Task<List<T>> GetMultipleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod)
     {
       var endpointUrl = CreateEndpoint(endpointType, httpMethod);
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      var client = HttpClientFactory.CreateClient();
-      client.SetBearerToken(accessToken);
+      var client = await InitializeHttpClient();
       var response = await client.GetAsync(endpointUrl);
 
       var result = await response.Content.ReadAsStringAsync();
@@ -61,9 +57,7 @@ namespace FitnessAppEnterprise.Services.Implementations
 
     public async Task<HttpResponseMessage> PostDataAsync<T>(EndpointType endpointType, T data)
     {
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      var client = HttpClientFactory.CreateClient();
-      client.SetBearerToken(accessToken);
+      var client = await InitializeHttpClient();
       var contentString = JsonConvert.SerializeObject(data);
       var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Post);
 
@@ -74,6 +68,44 @@ namespace FitnessAppEnterprise.Services.Implementations
       return response;
     }
 
+    public async Task<CountModel> GetModelCountsAsync(string userId)
+    {
+      var endpointUrl = CreateEndpoint(EndpointType.Workout, HttpMethod.Get);
+      var countEndpoint = string.Concat(endpointUrl, "count/", userId);
+      var client = await InitializeHttpClient();
+
+      var response = await client.GetAsync(countEndpoint);
+
+      var result = await response.Content.ReadAsStringAsync();
+      var model = JsonConvert.DeserializeObject<CountModel>(result);
+
+      return model;
+    }
+
+    public async Task<List<DetailModel>> GetDetailModels(EndpointType endpointType, string userId)
+    {
+      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Get);
+      var detailsEndPoint = string.Concat(endpointUrl, "details/", userId);
+      var client = await InitializeHttpClient();
+
+      var response = await client.GetAsync(detailsEndPoint);
+
+      var result = await response.Content.ReadAsStringAsync();
+      var model = JsonConvert.DeserializeObject<List<DetailModel>>(result);
+
+      return model;
+    }
+
+    public async Task<HttpResponseMessage> DeleteAsync(EndpointType endpointType, int id)
+    {
+      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Delete);
+      var deleteEndPoint = string.Concat(endpointUrl, "/", id);
+      var client = await InitializeHttpClient();
+
+      var response = await client.DeleteAsync(deleteEndPoint);
+      return response;
+    }
+
     private string CreateEndpoint(EndpointType endpointType, HttpMethod httpMethod)
     {
       var baseUrl = Configuration.GetValue<string>("WorkoutBaseUrl");
@@ -81,6 +113,14 @@ namespace FitnessAppEnterprise.Services.Implementations
       var resource = _modelHelper.GetResourceByHttpMethod(httpMethod);
       var endpointUrl = string.Concat(baseUrl, endpoint, "/", resource);
       return endpointUrl;
+    }
+
+    private async Task<HttpClient> InitializeHttpClient()
+    {
+      var accessToken = await HttpContext.GetTokenAsync("access_token");
+      var client = HttpClientFactory.CreateClient();
+      client.SetBearerToken(accessToken);
+      return client;
     }
   }
 }

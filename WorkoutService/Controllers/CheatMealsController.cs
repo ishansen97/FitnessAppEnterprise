@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkoutService.Context;
 using WorkoutService.Entity;
+using WorkoutService.Model;
 using WorkoutService.Service.Interfaces;
 
 namespace WorkoutService.Controllers
@@ -47,6 +48,14 @@ namespace WorkoutService.Controllers
             return cheatMeal;
         }
 
+        // GET: api/CheatMeals/details/userId
+        [HttpGet("details/{userId}")]
+        public async Task<IEnumerable<DetailModel>> GetCheatMealDetailsForUser(string userId)
+        {
+          var details = await _cheatMealService.GetDetailModelsForUserAsync(userId);
+          return details.ToList();
+        }
+
         // PUT: api/CheatMeals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -83,28 +92,20 @@ namespace WorkoutService.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("add")]
-        public async Task<ActionResult<CheatMeal>> PostCheatMeal(CheatMeal cheatMeal)
+        public async Task<ActionResult<CheatMeal>> PostCheatMeal(CheatMealModel cheatMealModel)
         {
-            _context.CheatMeals.Add(cheatMeal);
-            await _context.SaveChangesAsync();
+          if (cheatMealModel == null) return BadRequest();
+          await _cheatMealService.SaveCheatMeal(cheatMealModel);
 
-            return CreatedAtAction("GetCheatMeal", new { id = cheatMeal.Id }, cheatMeal);
+          return CreatedAtAction("GetCheatMeal", new { id = cheatMealModel.Id }, cheatMealModel);
         }
 
         // DELETE: api/CheatMeals/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<CheatMeal>> DeleteCheatMeal(int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteCheatMeal(int id)
         {
-            var cheatMeal = await _context.CheatMeals.FindAsync(id);
-            if (cheatMeal == null)
-            {
-                return NotFound();
-            }
-
-            _context.CheatMeals.Remove(cheatMeal);
-            await _context.SaveChangesAsync();
-
-            return cheatMeal;
+          await _cheatMealService.DeleteAsync(id);
+          return Accepted();
         }
 
         private bool CheatMealExists(int id)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,12 @@ namespace WorkoutService.Repository.implementations
       {
         var entity = await _context.Set<T>().FirstOrDefaultAsync(en => en.Id == id);
         return entity;
+      }
+
+      public async Task<IEnumerable<T>> GetEntitiesAsync(Expression<Func<T, bool>> expression)
+      {
+        var results = await _context.Set<T>().Where(expression).ToListAsync();
+        return results;
       }
 
       public async Task AddAsync(T entity)

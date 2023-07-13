@@ -18,7 +18,7 @@
                     @Html.DropDownListFor(m => m.SelectedCheatMealType,
                         Model.CheatMealTypes.Select(cm => new SelectListItem(cm.Name, cm.Id.ToString())),
                         "",
-                        new { Class = "form-control" })
+                        new { Class = "form-control", id="selectItems", onchange = "handleSelection()" })
                 </div>
             </div>
             <div class="form-group row">
@@ -36,11 +36,21 @@
                 </div>
             </div>
             <input type="hidden" name="Model.UserId" value="@Model.UserId" />
-            @*<input type="hidden" name="Model.SelectedCheatMealType" value="@Model.SelectedCheatMealType" />*@
-            <div class="form-group text-center row">
-                <button id="btnAddCheatMeal" class="btn btn-success">Add</button>
+            <input type="hidden" id="selectedCheatMealType" name="Model.SelectedCheatMealType" value="@Model.SelectedCheatMealType" />
+            <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                    <button id="btnAddCheatMeal" class="btn btn-success">Add</button>
+                </div>
             </div>
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    function handleSelection() {
+        var selectedValue = $('#selectItems').val();
+        console.log('selected value: ' + selectedValue);
+        $('#selectedCheatMealType').val(selectedValue);
+    }
+</script>
 

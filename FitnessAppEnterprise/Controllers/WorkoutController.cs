@@ -80,6 +80,7 @@ namespace FitnessAppEnterprise.Controllers
 
         if (response.StatusCode == HttpStatusCode.OK)
         {
+          HttpContext.Session.Remove("workoutModel");
           return RedirectToAction("Index", "Home");
         }
       }

@@ -1,6 +1,9 @@
-﻿@model LoginViewModel
+﻿@using FitnessAppEnterprise.Models.Enums
+@model CountModel
 @{
     ViewData["Title"] = "Home Page";
+    int workoutParam = (int)ActivityType.Workout;
+    int cheatMealParam = (int)ActivityType.CheatMeals;
 }
 
 <div class="text-center">
@@ -13,7 +16,9 @@
                     <h3 class="card-title text-primary">Workout Days</h3>
                 </div>
                 <div class="card-body text-center">
-                    <h3>1</h3>
+                    <a asp-controller="Details" asp-action="Details" asp-route-id="@workoutParam">
+                        <span class="h3">@Model.WorkoutCount</span>
+                    </a>
                     <a asp-controller="Workout" asp-action="AddWorkout" class="btn btn-link">Add Workout</a>
                 </div>
             </div>
@@ -22,10 +27,12 @@
         <div class="col-5">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title text-primary">Workout Days</h3>
+                    <h3 class="card-title text-primary">Cheat Meal Days</h3>
                 </div>
                 <div class="card-body text-center">
-                    <h3>1</h3>
+                    <a asp-controller="Details" asp-action="Details" asp-route-id="@cheatMealParam">
+                        <span class="h3">@Model.CheatMealCount</span>
+                    </a>
                     <a asp-controller="CheatMeal" asp-action="CheatMealHome" class="btn btn-link">Add Cheat Meal</a>
                 </div>
             </div>

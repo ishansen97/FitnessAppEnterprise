@@ -17,10 +17,14 @@ namespace WorkoutService.Controllers
   public class WorkoutController : ControllerBase
   {
     private readonly IWorkoutService _workoutService;
+    private readonly ICheatMealService _cheatMealService;
 
-    public WorkoutController(IWorkoutService workoutService)
+    public WorkoutController(
+      IWorkoutService workoutService, 
+      ICheatMealService cheatMealService)
     {
       _workoutService = workoutService;
+      _cheatMealService = cheatMealService;
     }
 
     // GET: api/<WorkoutController>
@@ -36,6 +40,29 @@ namespace WorkoutService.Controllers
     {
       var workoutModel = await _workoutService.GetWorkoutModelAsync(id);
       return workoutModel;
+    }
+
+    // GET api/<WorkoutController>/count/{userId}
+    [HttpGet("count/{userId}")]
+    public async Task<CountModel> GetCounts(string userId)
+    {
+      var workoutCount = await _workoutService.GetWorkoutCountAsync(userId);
+      var cheatMealCount = await _cheatMealService.GetCheatMealCount(userId);
+      var countModel = new CountModel
+      {
+        WorkoutCount = workoutCount,
+        CheatMealCount = cheatMealCount
+      };
+
+      return countModel;
+    }
+
+    // GET api/<WorkoutController>/{userId}
+    [HttpGet("details/{userId}")]
+    public async Task<IEnumerable<DetailModel>> GetWorkoutDetailsForUser(string userId)
+    {
+      var details = await _workoutService.GetDetailModelsForUser(userId);
+      return details.ToList();
     }
 
     // POST api/<WorkoutController>
@@ -57,9 +84,11 @@ namespace WorkoutService.Controllers
     }
 
     // DELETE api/<WorkoutController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
+    [HttpDelete("delete/{id}")]
+    public async Task<ActionResult> Delete(int id)
     {
+      await _workoutService.DeleteAsync(id);
+      return Accepted();
     }
   }
 }

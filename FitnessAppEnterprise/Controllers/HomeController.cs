@@ -8,27 +8,53 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FitnessAppEnterprise.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace FitnessAppEnterprise.Controllers
 {
+  [Authorize]
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
     private readonly IHttpClientFactory _clientFactory;
+    private readonly IRemoteService _remoteService;
 
     public HomeController(
       ILogger<HomeController> logger,
-      IHttpClientFactory clientFactory)
+      IHttpClientFactory clientFactory, 
+      IRemoteService remoteService)
     {
       _logger = logger;
       _clientFactory = clientFactory;
+      _remoteService = remoteService;
     }
 
-    [Authorize]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
+    {
+      var userName = GetUserName();
+      var userId = GetUserId();
+      ViewData["userName"] = userName;
+
+      var countModel = await _remoteService.GetModelCountsAsync(userId);
+      return View(countModel);
+    }
+
+    public async Task<IActionResult> Privacy()
+    {
+      var accessToken = await HttpContext.GetTokenAsync("access_token");
+      return View();
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    private string GetUserName()
     {
       var userClaims = User.Claims.ToList();
       string userName = string.Empty;
@@ -39,28 +65,13 @@ namespace FitnessAppEnterprise.Controllers
           userName = userClaim.Value;
         }
       }
-      ViewData["userName"] = userName;
-      return View();
+
+      return userName;
     }
 
-    [Authorize]
-    public async Task<IActionResult> Privacy()
+    private string GetUserId()
     {
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      return View();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Index(LoginViewModel model)
-    {
-      var test = model.UserName;
-      return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      return User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
   }
 }

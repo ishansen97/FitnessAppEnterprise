@@ -12,5 +12,11 @@ namespace WorkoutService.Service.Interfaces
   public interface ICheatMealService : IEntityBaseRepository<CheatMeal>
   {
     IEnumerable<CheatMealTypeModel> GetCheatMealTypes();
+
+    Task SaveCheatMeal(CheatMealModel cheatMealModel);
+
+    Task<int> GetCheatMealCount(string userId);
+
+    Task<IEnumerable<DetailModel>> GetDetailModelsForUserAsync(string userId);
   }
 }

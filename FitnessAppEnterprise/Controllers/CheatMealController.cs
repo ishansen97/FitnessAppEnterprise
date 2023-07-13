@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -52,10 +53,15 @@ namespace FitnessAppEnterprise.Controllers
     {
       if (ModelState.IsValid)
       {
-        return View();
+        var response = await _remoteService.PostDataAsync(EndpointType.CheatMeals, model);
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+          return RedirectToAction("Index", "Home");
+        }
       }
 
-      return NotFound();
+      ViewData["isError"] = true;
+      return View(model);
     } 
   }
 }

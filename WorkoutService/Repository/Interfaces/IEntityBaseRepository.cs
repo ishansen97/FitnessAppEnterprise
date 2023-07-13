@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WorkoutService.Entity;
@@ -12,6 +13,8 @@ namespace WorkoutService.Repository.Interfaces
     Task<IEnumerable<T>> GetAllAsync();
 
     Task<T> GetByIdAsync(int id);
+
+    Task<IEnumerable<T>> GetEntitiesAsync(Expression<Func<T, bool>> expression);
 
     Task AddAsync(T entity);
 
