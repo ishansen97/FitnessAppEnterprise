@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace FitnessAppEnterprise.Models
 {
-  public class CheatMealViewModel
+  public class WorkoutAddModel
   {
     public string UserId { get; set; }
 
-    public List<CheatMealTypeModel> CheatMealTypes { get; set; }
+    public List<WorkoutTypeModel> WorkoutTypes { get; set; }
 
-    public int SelectedCheatMealType { get; set; }
+    public int SelectedWorkoutType { get; set; }
 
-    public double MealAmount { get; set; }
+    public Dictionary<string, double> Fields { get; set; }
 
     public DateTime Created { get; set; }
   }

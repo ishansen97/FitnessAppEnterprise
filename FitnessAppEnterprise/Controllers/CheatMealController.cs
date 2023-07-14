@@ -32,10 +32,10 @@ namespace FitnessAppEnterprise.Controllers
       var cheatMealTypes =
         await _remoteService.GetMultipleModelDataAsync<CheatMealTypeModel>(EndpointType.CheatMealTypes, HttpMethod.Get);
 
-      var cheatMealModel = HttpContext.Session.GetObject<CheatMealViewModel>("cheatMealModel");
+      var cheatMealModel = HttpContext.Session.GetObject<CheatMealAddModel>("cheatMealModel");
       if (cheatMealModel == null)
       {
-        cheatMealModel = new CheatMealViewModel()
+        cheatMealModel = new CheatMealAddModel()
         {
           UserId = userId,
           CheatMealTypes = cheatMealTypes,
@@ -49,7 +49,7 @@ namespace FitnessAppEnterprise.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> CheatMealHome(CheatMealViewModel model)
+    public async Task<IActionResult> CheatMealHome(CheatMealAddModel model)
     {
       if (ModelState.IsValid)
       {

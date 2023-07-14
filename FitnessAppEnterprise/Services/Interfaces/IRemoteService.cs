@@ -12,7 +12,7 @@ namespace FitnessAppEnterprise.Services.Interfaces
 {
   public interface IRemoteService
   {
-    Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod);
+    Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod, string path = "", string param = "");
 
     Task<List<T>> GetMultipleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod);
 
@@ -21,6 +21,8 @@ namespace FitnessAppEnterprise.Services.Interfaces
     Task<CountModel> GetModelCountsAsync(string userId);
 
     Task<List<DetailModel>> GetDetailModels(EndpointType endpointType, string userId);
+
+    Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, int id, T data);
 
     Task<HttpResponseMessage> DeleteAsync(EndpointType endpointType, int id);
   }

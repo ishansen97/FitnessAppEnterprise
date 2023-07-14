@@ -75,22 +75,45 @@ namespace FitnessAppEnterprise.Controllers
       return View();
     }
 
-    // POST: DetailsController/Edit/5
+    // POST: DetailsController/EditWorkout/{id}
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> EditWorkout(int id, WorkoutEditModel model)
     {
-      try
+      if (id != model.Id)
       {
-        return RedirectToAction(nameof(Index));
+        return BadRequest();
       }
-      catch
+      var response = await _remoteService.PutDataAsync(EndpointType.Workout, id, model);
+      if (response.StatusCode == HttpStatusCode.OK)
       {
-        return View();
+        return RedirectToAction("Index", "Home");
       }
+
+      return BadRequest();
     }
 
-    // GET: DetailsController/Delete/5
+    // POST: DetailsController/EditCheatMeal/{id}
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> EditCheatMeal(int id, CheatMealEditModel model)
+    {
+      if (id != model.Id)
+      {
+        return BadRequest();
+      }
+      var response = await _remoteService.PutDataAsync(EndpointType.CheatMeals, id, model);
+      if (response.StatusCode == HttpStatusCode.OK)
+      {
+        return RedirectToAction("Index", "Home");
+      }
+
+      return BadRequest();
+    }
+
+
+
+    // GET: DetailsController/Delete/{id}?activity={activity}
     public async Task<ActionResult> Delete(int id, [FromQuery] int activity)
     {
       HttpResponseMessage message = null;

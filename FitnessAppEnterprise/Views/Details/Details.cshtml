@@ -14,6 +14,5 @@
 
 @foreach (var detail in Model)
 {
-    var result = await Html.PartialAsync("_Detail", detail);
-    @result
+    @await Html.PartialAsync("_Detail", detail)
 }

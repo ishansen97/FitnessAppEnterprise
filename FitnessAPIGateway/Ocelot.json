@@ -1,0 +1,109 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/workouttypes",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutTypesService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/workout",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // model counts
+    {
+      "DownstreamPathTemplate": "/api/workout/count/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/count/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of model counts
+    // user workout details
+    {
+      "DownstreamPathTemplate": "/api/workout/details/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/details/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of user workout details
+    // cheat meal endpoint
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // end of cheat meal endpoint
+    // cheat meal details for user
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/details/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/details/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of cheat meal details for user
+    {
+      "DownstreamPathTemplate": "/api/cheatmealtypes",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealTypesService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/predictions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44367
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/PredictionsService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    }
+  ]
+}

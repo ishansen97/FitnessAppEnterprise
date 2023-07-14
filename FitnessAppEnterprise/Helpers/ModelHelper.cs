@@ -17,25 +17,32 @@ namespace FitnessAppEnterprise.Helpers
       switch (endpoint)
       {
         case EndpointType.Workout:
-          endpointUrl = "workout";
+          //endpointUrl = "workout";
+          endpointUrl = "WorkoutService";
           break;
         case EndpointType.WorkoutTypes:
-          endpointUrl = "workouttypes";
+          //endpointUrl = "workouttypes";
+          endpointUrl = "WorkoutTypesService";
           break;
         case EndpointType.Predictions:
-          endpointUrl = "prediction";
+          //endpointUrl = "predictions";
+          endpointUrl = "PredictionsService";
           break;
         case EndpointType.Reports:
-          endpointUrl = "report";
+          //endpointUrl = "report";
+          endpointUrl = "ReportService";
           break;
         case EndpointType.WeeklyViews:
-          endpointUrl = "weeklyview";
+          //endpointUrl = "weeklyview";
+          endpointUrl = "WeeklyViewService";
           break;
         case EndpointType.CheatMeals:
-          endpointUrl = "cheatmeals";
+          //endpointUrl = "cheatmeals";
+          endpointUrl = "CheatMealsService";
           break;
         case EndpointType.CheatMealTypes:
-          endpointUrl = "cheatmealtypes";
+          //endpointUrl = "cheatmealtypes";
+          endpointUrl = "CheatMealTypesService";
           break;
 
       }

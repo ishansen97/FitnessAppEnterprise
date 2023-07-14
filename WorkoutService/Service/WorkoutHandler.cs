@@ -50,7 +50,7 @@ namespace WorkoutService.Service
       return workoutTypeModels;
     }
 
-    public async Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(string userId)
+    public async Task<IEnumerable<WorkoutAddModel>> GetUserWorkoutsAsync(string userId)
     {
       var workouts = await _context.Workouts
                                               .Where(wk => wk.UserId == userId)
@@ -65,28 +65,28 @@ namespace WorkoutService.Service
       return _workoutTypeHelper.GetFieldsForWorkoutType(workoutTypeId);
     }
 
-    public async Task SaveWorkout(WorkoutModel model)
+    public async Task SaveWorkout(WorkoutAddModel model)
     {
       var workout = _modelHelper.GetWorkoutByModel(model);
 
       await AddAsync(workout);
     }
 
-    public async Task UpdateWorkoutAsync(int id, WorkoutModel model)
+    public async Task UpdateWorkoutAsync(int id, WorkoutEditModel model)
     {
       var workout = new Workout()
       {
         Id = id,
         UserId = model.UserId,
-        Created = DateTime.Today,
+        Created = model.Created,
         Fields = model.Fields.SerializeDict(),
-        WorkoutType = (WorkoutType)model.SelectedWorkoutType
+        WorkoutType = Enum.Parse<WorkoutType>(model.WorkoutType)
       };
 
       await UpdateAsync(id, workout);
     }
 
-    public async Task<WorkoutModel> GetWorkoutModelAsync(int id)
+    public async Task<WorkoutAddModel> GetWorkoutModelAsync(int id)
     {
       var workout = await GetByIdAsync(id);
       return _modelHelper.GetWorkoutModelByEntity(workout);
@@ -102,6 +102,13 @@ namespace WorkoutService.Service
     {
       var workouts = await GetEntitiesAsync(workout => workout.UserId == userId);
       return _modelHelper.GetDetailModels(workouts);
+    }
+
+    public async Task<WorkoutEditModel> GetEditDetails(int id)
+    {
+      var workouts = await GetEntitiesAsync(workout => workout.Id == id);
+      var workout = workouts.First();
+      return _modelHelper.GetWorkoutEditModel(workout);
     }
   }
 }

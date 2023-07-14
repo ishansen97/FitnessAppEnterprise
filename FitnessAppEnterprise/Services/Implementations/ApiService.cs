@@ -31,9 +31,18 @@ namespace FitnessAppEnterprise.Services.Implementations
       _modelHelper = modelHelper;
     }
 
-    public async Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod)
+    public async Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod, string path = "",
+      string param = "")
     {
       var endpointUrl = CreateEndpoint(endpointType, httpMethod);
+      if (!string.IsNullOrEmpty(path))
+      {
+        endpointUrl = string.Concat(endpointUrl, path, "/");
+      }
+      if (!string.IsNullOrEmpty(param))
+      {
+        endpointUrl = string.Concat(endpointUrl, param);
+      }
       var client = await InitializeHttpClient();
       var response = await client.GetAsync(endpointUrl);
 
@@ -96,6 +105,23 @@ namespace FitnessAppEnterprise.Services.Implementations
       return model;
     }
 
+    public async Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, int id, T data)
+    {
+      var client = await InitializeHttpClient();
+      var contentString = JsonConvert.SerializeObject(data);
+      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Put);
+      if (id > 0)
+      {
+        endpointUrl = string.Concat(endpointUrl, "/", id);
+      }
+
+      HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, endpointUrl);
+      message.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+      var response = await client.SendAsync(message);
+
+      return response;
+    }
+
     public async Task<HttpResponseMessage> DeleteAsync(EndpointType endpointType, int id)
     {
       var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Delete);
@@ -108,7 +134,8 @@ namespace FitnessAppEnterprise.Services.Implementations
 
     private string CreateEndpoint(EndpointType endpointType, HttpMethod httpMethod)
     {
-      var baseUrl = Configuration.GetValue<string>("WorkoutBaseUrl");
+      //var baseUrl = Configuration.GetValue<string>("WorkoutBaseUrl");
+      var baseUrl = Configuration.GetValue<string>("BaseUrl");
       var endpoint = _modelHelper.GetEndpoint(endpointType);
       var resource = _modelHelper.GetResourceByHttpMethod(httpMethod);
       var endpointUrl = string.Concat(baseUrl, endpoint, "/", resource);

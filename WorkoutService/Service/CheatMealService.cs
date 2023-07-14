@@ -59,5 +59,18 @@ namespace WorkoutService.Service
       var cheatMeals = await GetEntitiesAsync(cheatMeal => cheatMeal.UserId == userId);
       return _modelHelper.GetDetailModels(cheatMeals);
     }
+
+    public async Task<CheatMealEditModel> GetEditDetails(int id)
+    {
+      var cheatMeals = await GetEntitiesAsync(cheatMeal => cheatMeal.Id == id);
+      var cheatMeal = cheatMeals.First();
+      return _modelHelper.GetCheatMealEditModels(cheatMeal);
+    }
+
+    public async Task UpdateCheatMealAsync(int id, CheatMealEditModel model)
+    {
+      var cheatMeal = _modelHelper.GetCheatMealFromEditModel(model);
+      await UpdateAsync(id, cheatMeal);
+    }
   }
 }

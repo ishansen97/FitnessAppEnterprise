@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using WorkoutService.Entity;
 using WorkoutService.Entity.Enums;
 using WorkoutService.Extensions;
@@ -14,7 +15,7 @@ namespace WorkoutService.Helpers
   public class WorkoutModelHelper
   {
     #region Workout models
-    public Workout GetWorkoutByModel(WorkoutModel model)
+    public Workout GetWorkoutByModel(WorkoutAddModel model)
     {
       var workout = new Workout()
       {
@@ -27,7 +28,7 @@ namespace WorkoutService.Helpers
       return workout;
     }
 
-    public List<Workout> GetWorkoutsByModels(List<WorkoutModel> models)
+    public List<Workout> GetWorkoutsByModels(List<WorkoutAddModel> models)
     {
       var workouts = new List<Workout>();
       foreach (var model in models)
@@ -38,9 +39,9 @@ namespace WorkoutService.Helpers
       return workouts;
     }
 
-    public WorkoutModel GetWorkoutModelByEntity(Workout workout)
+    public WorkoutAddModel GetWorkoutModelByEntity(Workout workout)
     {
-      var workoutModel = new WorkoutModel()
+      var workoutModel = new WorkoutAddModel()
       {
         UserId = workout.UserId,
         Created = workout.Created,
@@ -51,9 +52,9 @@ namespace WorkoutService.Helpers
       return workoutModel;
     }
 
-    public List<WorkoutModel> GetWorkoutModelsByWorkouts(List<Workout> workouts)
+    public List<WorkoutAddModel> GetWorkoutModelsByWorkouts(List<Workout> workouts)
     {
-      var models = new List<WorkoutModel>();
+      var models = new List<WorkoutAddModel>();
       foreach (var workout in workouts)
       {
         models.Add(GetWorkoutModelByEntity(workout));
@@ -61,6 +62,36 @@ namespace WorkoutService.Helpers
 
       return models;
     }
+
+    public WorkoutEditModel GetWorkoutEditModel(Workout workout)
+    {
+      var workoutEditModel = new WorkoutEditModel
+      {
+        Id = workout.Id,
+        UserId = workout.UserId,
+        Created = workout.Created,
+        WorkoutType = workout.WorkoutType.ToString(),
+        Fields = workout.Fields.DeserializeDict<string, double>()
+      };
+
+      return workoutEditModel;
+    }
+
+    public Workout GetWorkoutFromEditModel(WorkoutEditModel workoutEditModel)
+    {
+      var workout = new Workout
+      {
+        Id = workoutEditModel.Id,
+        UserId = workoutEditModel.UserId,
+        Created = workoutEditModel.Created,
+        WorkoutType = Enum.Parse<WorkoutType>(workoutEditModel.WorkoutType),
+        Fields = workoutEditModel.Fields.SerializeDict()
+      };
+
+      return workout;
+    }
+
+
     #endregion
 
     #region Cheat meal model
@@ -111,6 +142,34 @@ namespace WorkoutService.Helpers
       }
 
       return models;
+    }
+
+    public CheatMealEditModel GetCheatMealEditModels(CheatMeal cheatMeal)
+    {
+      var cheatMealEditModel = new CheatMealEditModel
+      {
+        Id = cheatMeal.Id,
+        UserId = cheatMeal.UserId,
+        Created = cheatMeal.Created,
+        MealType = cheatMeal.MealType.ToString(),
+        MealAmount = cheatMeal.MealAmount
+      };
+
+      return cheatMealEditModel;
+    }
+
+    public CheatMeal GetCheatMealFromEditModel(CheatMealEditModel cheatMealEditModel)
+    {
+      var workout = new CheatMeal
+      {
+        Id = cheatMealEditModel.Id,
+        UserId = cheatMealEditModel.UserId,
+        Created = cheatMealEditModel.Created,
+        MealType = Enum.Parse<MealType>(cheatMealEditModel.MealType),
+        MealAmount = cheatMealEditModel.MealAmount
+      };
+
+      return workout;
     }
 
     #endregion

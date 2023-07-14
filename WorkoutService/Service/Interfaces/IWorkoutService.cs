@@ -15,16 +15,18 @@ namespace WorkoutService.Service.Interfaces
 
     Dictionary<string, double> GetWorkoutTypeFields(int workoutTypeId);
 
-    Task<IEnumerable<WorkoutModel>> GetUserWorkoutsAsync(string userId);
+    Task<IEnumerable<WorkoutAddModel>> GetUserWorkoutsAsync(string userId);
 
-    Task SaveWorkout(WorkoutModel model);
+    Task SaveWorkout(WorkoutAddModel model);
 
-    Task UpdateWorkoutAsync(int id, WorkoutModel model);
+    Task UpdateWorkoutAsync(int id, WorkoutEditModel model);
 
-    Task<WorkoutModel> GetWorkoutModelAsync(int id);
+    Task<WorkoutAddModel> GetWorkoutModelAsync(int id);
 
     Task<int> GetWorkoutCountAsync(string userId);
 
     Task<IEnumerable<DetailModel>> GetDetailModelsForUser(string userId);
+
+    Task<WorkoutEditModel> GetEditDetails(int id);
   }
 }

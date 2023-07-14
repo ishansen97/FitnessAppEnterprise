@@ -7,7 +7,7 @@ using WorkoutService.Entity;
 
 namespace WorkoutService.Model
 {
-    public class WorkoutModel
+    public class WorkoutAddModel
     {
       public List<WorkoutTypeModel> WorkoutTypes { get; set; }
 

@@ -53,10 +53,10 @@ namespace FitnessAppEnterprise.Controllers
       //var models = JsonConvert.DeserializeObject<List<WorkoutTypeModel>>(result);
       var models = await _remoteService.GetMultipleModelDataAsync<WorkoutTypeModel>(EndpointType.WorkoutTypes, HttpMethod.Get);
 
-      var workoutModel = HttpContext.Session.GetObject<WorkoutViewModel>("workoutModel");
+      var workoutModel = HttpContext.Session.GetObject<WorkoutAddModel>("workoutModel");
       if (workoutModel == null)
       {
-        workoutModel = new WorkoutViewModel()
+        workoutModel = new WorkoutAddModel()
         {
           UserId = userId,
           WorkoutTypes = models,
@@ -72,7 +72,7 @@ namespace FitnessAppEnterprise.Controllers
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> AddWorkout(WorkoutViewModel model)
+    public async Task<IActionResult> AddWorkout(WorkoutAddModel model)
     {
       if (ModelState.IsValid)
       {
@@ -90,7 +90,7 @@ namespace FitnessAppEnterprise.Controllers
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> WorkoutTypeChanged(WorkoutViewModel model)
+    public async Task<IActionResult> WorkoutTypeChanged(WorkoutAddModel model)
     {
       var selectedValue = model.SelectedWorkoutType;
       var client = _clientFactory.CreateClient();
@@ -100,7 +100,7 @@ namespace FitnessAppEnterprise.Controllers
 
       var result = await response.Content.ReadAsStringAsync();
       var fields = JsonConvert.DeserializeObject<Dictionary<string, double>>(result);
-      var workoutModel = HttpContext.Session.GetObject<WorkoutViewModel>("workoutModel");
+      var workoutModel = HttpContext.Session.GetObject<WorkoutAddModel>("workoutModel");
       workoutModel.Fields = fields;
       workoutModel.SelectedWorkoutType = selectedValue;
       HttpContext.Session.SetObject("workoutModel", workoutModel);

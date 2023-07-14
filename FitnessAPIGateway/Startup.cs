@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace FitnessAPIGateway
 {
@@ -26,6 +28,7 @@ namespace FitnessAPIGateway
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddOcelot();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +49,8 @@ namespace FitnessAPIGateway
       {
         endpoints.MapControllers();
       });
+
+      app.UseOcelot().Wait();
     }
   }
 }

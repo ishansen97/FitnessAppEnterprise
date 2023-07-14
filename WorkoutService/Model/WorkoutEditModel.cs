@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessAppEnterprise.Models
+namespace WorkoutService.Model
 {
-  public class WorkoutViewModel
+  public class WorkoutEditModel
   {
+    public int Id { get; set; }
+
     public string UserId { get; set; }
 
-    public List<WorkoutTypeModel> WorkoutTypes { get; set; }
-
-    public int SelectedWorkoutType { get; set; }
-
-    public Dictionary<string, double> Fields { get; set; }
+    public string WorkoutType { get; set; }
 
     public DateTime Created { get; set; }
+
+    public Dictionary<string, double> Fields { get; set; }
   }
 }

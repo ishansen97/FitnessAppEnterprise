@@ -36,7 +36,7 @@ namespace WorkoutService.Controllers
 
     // GET api/<WorkoutController>/5
     [HttpGet("{id}")]
-    public async Task<WorkoutModel> Get(int id)
+    public async Task<WorkoutAddModel> Get(int id)
     {
       var workoutModel = await _workoutService.GetWorkoutModelAsync(id);
       return workoutModel;
@@ -57,7 +57,7 @@ namespace WorkoutService.Controllers
       return countModel;
     }
 
-    // GET api/<WorkoutController>/{userId}
+    // GET api/<WorkoutController>/details/{userId}
     [HttpGet("details/{userId}")]
     public async Task<IEnumerable<DetailModel>> GetWorkoutDetailsForUser(string userId)
     {
@@ -65,19 +65,28 @@ namespace WorkoutService.Controllers
       return details.ToList();
     }
 
+    // GET api/<WorkoutController>/editDetail/{id}
+    [HttpGet("editDetail/{id}")]
+    public async Task<ActionResult<WorkoutEditModel>> GetEditWorkoutDetails(int id)
+    {
+      var model = await _workoutService.GetEditDetails(id);
+      if (model == null) return NotFound();
+      return model;
+    }
+
     // POST api/<WorkoutController>
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> Post([FromBody] WorkoutModel model)
+    public async Task<IActionResult> Post([FromBody] WorkoutAddModel model)
     {
       if (model == null) return BadRequest();
       await _workoutService.SaveWorkout(model);
       return Ok();
     }
 
-    // PUT api/<WorkoutController>/5
+    // PUT api/<WorkoutController>/update/5
     [HttpPut("update/{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody] WorkoutModel model)
+    public async Task<IActionResult> Put(int id, [FromBody] WorkoutEditModel model)
     {
       await _workoutService.UpdateWorkoutAsync(id, model);
       return Ok();
