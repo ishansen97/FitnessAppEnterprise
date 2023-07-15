@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using PredictionsService.Constants;
 using PredictionsService.Model;
 using PredictionsService.Services;
@@ -14,13 +15,18 @@ namespace PredictionsService.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [Authorize]
   public class PredictionsController : ControllerBase
   {
     private readonly IPredictionConstantsService _constantsService;
+    private readonly IPredictionService _predictionService;
 
-    public PredictionsController(IPredictionConstantsService constantsService)
+    public PredictionsController(
+      IPredictionConstantsService constantsService, 
+      IPredictionService predictionService)
     {
       _constantsService = constantsService;
+      _predictionService = predictionService;
     }
 
     // GET: api/<PredictionsController>
@@ -35,6 +41,15 @@ namespace PredictionsService.Controllers
     public string Get(int id)
     {
       return "value";
+    }
+
+    // GET api/<PredictionsController>/predict/
+    [HttpPost("predict/")]
+    public async Task<ActionResult<PredictionModel>> MakePrediction([FromBody]PredictionAccessModel accessModel)
+    {
+      var model = await _predictionService.GetUserPredictionAsync(accessModel);
+      if (model == null) return NotFound();
+      return model;
     }
 
     // GET api/<PredictionsController>/minimumCount

@@ -1,7 +1,8 @@
 {
   "ReRoutes": [
+    // workout types controller
     {
-      "DownstreamPathTemplate": "/api/workouttypes",
+      "DownstreamPathTemplate": "/api/workouttypes/",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,9 +10,25 @@
           "Port": 44379
         }
       ],
-      "UpstreamPathTemplate": "/apigateway/WorkoutTypesService",
+      "UpstreamPathTemplate": "/apigateway/WorkoutTypesService/",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ]
     },
+    // end of workout types controller
+    // get workout type by id
+    {
+      "DownstreamPathTemplate": "/api/workouttypes/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutTypesService/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get workout type by id
+    // workout controller
     {
       "DownstreamPathTemplate": "/api/workout",
       "DownstreamScheme": "https",
@@ -24,6 +41,21 @@
       "UpstreamPathTemplate": "/apigateway/WorkoutService",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
     },
+    // end of workout controller
+    // get workoutadd model
+    {
+      "DownstreamPathTemplate": "/api/workout/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get workoutadd model
     // model counts
     {
       "DownstreamPathTemplate": "/api/workout/count/{userId}",
@@ -52,6 +84,60 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     // end of user workout details
+    {
+      "DownstreamPathTemplate": "/api/workout/editDetail/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/editDetail/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // workout add
+    {
+      "DownstreamPathTemplate": "/api/workout/add/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // end of workout add
+    // workout update
+    {
+      "DownstreamPathTemplate": "/api/workout/update/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/update/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    // end of workout update
+    // workout delete
+    {
+      "DownstreamPathTemplate": "/api/workout/delete/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    // end of workout delete
     // cheat meal endpoint
     {
       "DownstreamPathTemplate": "/api/cheatmeals",
@@ -66,6 +152,20 @@
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
     },
     // end of cheat meal endpoint
+    // get cheat meal
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get cheat meal
     // cheat meal details for user
     {
       "DownstreamPathTemplate": "/api/cheatmeals/details/{userId}",
@@ -80,6 +180,63 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     // end of cheat meal details for user
+    // get edit detail for cheatmeal
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/editdetail/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/editdetail/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get edit detail for cheatmeal
+    // update cheatmeal
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/update/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/update/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    // end of update cheatmeal
+    // add cheatmeal
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/add",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // end of add cheatmeal
+    // delete cheatmeal
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/delete/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    // end of delete cheatmeal
+    // cheat meal types controller
     {
       "DownstreamPathTemplate": "/api/cheatmealtypes",
       "DownstreamScheme": "https",
@@ -92,7 +249,8 @@
       "UpstreamPathTemplate": "/apigateway/CheatMealTypesService",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
     },
-
+    // end of cheat meal types controller
+    // predictions controller
     {
       "DownstreamPathTemplate": "/api/predictions",
       "DownstreamScheme": "https",
@@ -104,6 +262,35 @@
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // end of predictions controller
+    // get the minimum count
+    {
+      "DownstreamPathTemplate": "/api/predictions/minimumcount/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44367
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/PredictionsService/minimumcount/",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get the minimum count
+    // make prediction 
+    {
+      "DownstreamPathTemplate": "/api/predictions/predict/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44367
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/PredictionsService/predict/",
+      "UpstreamHttpMethod": [ "POST" ]
     }
+    // end of make prediction 
   ]
 }

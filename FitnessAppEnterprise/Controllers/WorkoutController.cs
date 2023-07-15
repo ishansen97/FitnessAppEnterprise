@@ -93,19 +93,21 @@ namespace FitnessAppEnterprise.Controllers
     public async Task<IActionResult> WorkoutTypeChanged(WorkoutAddModel model)
     {
       var selectedValue = model.SelectedWorkoutType;
-      var client = _clientFactory.CreateClient();
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      client.SetBearerToken(accessToken);
-      var response = await client.GetAsync($"https://localhost:44379/api/workouttypes/{selectedValue}");
+      //var client = _clientFactory.CreateClient();
+      //var accessToken = await HttpContext.GetTokenAsync("access_token");
+      //client.SetBearerToken(accessToken);
+      //var response = await client.GetAsync($"https://localhost:44379/api/workouttypes/{selectedValue}");
 
-      var result = await response.Content.ReadAsStringAsync();
-      var fields = JsonConvert.DeserializeObject<Dictionary<string, double>>(result);
+      //var result = await response.Content.ReadAsStringAsync();
+      //var fields = JsonConvert.DeserializeObject<Dictionary<string, double>>(result);
+      var fields = await _remoteService.GetSingleModelDataAsync<Dictionary<string, double>>(EndpointType.WorkoutTypes,
+        HttpMethod.Get, param: selectedValue.ToString());
       var workoutModel = HttpContext.Session.GetObject<WorkoutAddModel>("workoutModel");
       workoutModel.Fields = fields;
       workoutModel.SelectedWorkoutType = selectedValue;
       HttpContext.Session.SetObject("workoutModel", workoutModel);
 
-      return RedirectToAction("AddWorkout");
+      return RedirectToAction(nameof(AddWorkout));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

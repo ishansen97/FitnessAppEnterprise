@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model PredictionModel
 @{
     var message = "No sufficient workouts/cheatmeals to make predictions";
 }
@@ -10,19 +11,59 @@
         <h3>Make your Fitness Predictions here!!</h3>
     </div>
     @if (ViewData["isError"] != null &&
-        bool.TryParse(ViewData["isError"].ToString(), out var boolVal) &&
-        boolVal)
+       bool.TryParse(ViewData["isError"].ToString(), out var boolVal) &&
+       boolVal)
     {
         <div class="alert alert-danger">
             <span>@message</span>
         </div>
     }
-    <form action="/" method="post">
+    <form asp-action="FindPrediction" method="post">
         <div class="form-inline row">
             <label class="col-form-label col-sm-3">Select Date</label>
             <div class="col-sm-4">
-                <input type="date" name="txtDate" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <input type="date" name="predictionDate" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
             </div>
+            <button type="submit" class="btn btn-success">Predict</button>
         </div>
     </form>
+    @if (Model != null)
+    {
+        @*prediction model data*@
+        <form asp-action="Create" method="post">
+            <input type="hidden" name="Model.UserId" value="@Model.UserId" />
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Current Weight</label>
+                <div class="col-sm-4">
+                    <p>@Model.CurrentWeight <span>Kg</span> </p>
+                    <input type="hidden" name="Model.CurrentWeight" value="@Model.CurrentWeight" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Predicted Weight/Status</label>
+                <div class="col-sm-4">
+                    <p>@Model.PredictedWeight <span>Kg</span> </p>
+                </div>
+                <div class="col-sm-2">
+                    <p>@Model.WeightStatus</p>
+                </div>
+                <input type="hidden" name="Model.PredictedWeight" value="@Model.PredictedWeight" />
+                <input type="hidden" name="Model.WeightStatus" value="@Model.WeightStatus" />
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Status</label>
+                <div class="col-sm-4">
+                    <p>@Model.State</p>
+                </div>
+                <input type="hidden" name="Model.State" value="@Model.State" />
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Message</label>
+                <div class="col-sm-4">
+                    <p>@Model.Message</p>
+                </div>
+                <input type="hidden" name="Model.Message" value="@Model.Message" />
+            </div>
+        </form>
+    }
 </div>

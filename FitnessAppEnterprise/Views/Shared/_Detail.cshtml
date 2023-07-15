@@ -9,6 +9,9 @@
 @{
     var editModal = string.Empty;
     var viewModal = string.Empty;
+    var editModalId = string.Empty;
+    var viewModalId = string.Empty;
+    var activity = string.Empty;
     WorkoutEditModel workoutEditModel = null;
     CheatMealEditModel cheatMealEditModel = null;
     if (Model.ActivityType == (int)ActivityType.Workout)
@@ -17,6 +20,7 @@
                                     HttpMethod.Get, "editDetail", Model.Id.ToString());
         editModal = "_WorkoutEditModal";
         viewModal = "_WorkoutViewModal";
+        activity = "workout";
     }
     else if (Model.ActivityType == (int)ActivityType.CheatMeals)
     {
@@ -24,7 +28,13 @@
             HttpMethod.Get, "editDetail", Model.Id.ToString());
         editModal = "_CheatMealEditModal";
         viewModal = "_CheatMealViewModal";
+        activity = "cheatmeal";
     }
+
+    editModalId = $"editModal{activity}{Model.Id}";
+    viewModalId = $"viewModal{activity}{Model.Id}";
+    ViewData["editModalId"] = editModalId;
+    ViewData["viewModalId"] = viewModalId;
 }
 
 <div class="card card-body mr-2 box-shadow">
@@ -35,10 +45,10 @@
         </div>
         <div class="col-lg-8">
             <div class="float-right">
-                <a class="btn btn-info mr-1" data-toggle="modal" data-target="#viewModal">
+                <a class="btn btn-info mr-1" data-toggle="modal" data-target="#@viewModalId">
                     <span>View</span>
                 </a>
-                <a class="btn btn-secondary mr-1" data-toggle="modal" data-target="#editModal">
+                <a class="btn btn-secondary mr-1" data-toggle="modal" data-target="#@editModalId">
                     <span>Edit</span>
                 </a>
                 <a asp-controller="Details" asp-action="Delete" asp-route-id="@Model.Id" asp-route-activity="@Model.ActivityType" class="btn btn-danger mr-1">
@@ -52,19 +62,19 @@
 @*view modal*@
 @if (Model.ActivityType == (int)ActivityType.Workout)
 {
-    @await Html.PartialAsync(viewModal, workoutEditModel)
+    @await Html.PartialAsync(viewModal, workoutEditModel, ViewData)
 }
 else if (Model.ActivityType == (int)ActivityType.CheatMeals)
 {
-    @await Html.PartialAsync(viewModal, cheatMealEditModel)
+    @await Html.PartialAsync(viewModal, cheatMealEditModel, ViewData)
 }
 
 @*edit modal*@
 @if (Model.ActivityType == (int)ActivityType.Workout)
 {
-    @await Html.PartialAsync(editModal, workoutEditModel)
+    @await Html.PartialAsync(editModal, workoutEditModel, ViewData)
 }
 else if (Model.ActivityType == (int)ActivityType.CheatMeals)
 {
-    @await Html.PartialAsync(editModal, cheatMealEditModel)
+    @await Html.PartialAsync(editModal, cheatMealEditModel, ViewData)
 }

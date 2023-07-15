@@ -1,11 +1,38 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model CheatMealEditModel
 @{
+    var day = Model.Created.Day;
+    var month = Model.Created.Month;
+    var date = string.Empty;
+    var dayTxt = string.Empty;
+    var monthTxt = string.Empty;
+
+    if (day < 10)
+    {
+        dayTxt = $"0{day}";
+    }
+    else
+    {
+        dayTxt = day.ToString();
+    }
+
+    if (month < 10)
+    {
+        monthTxt = $"0{month}";
+    }
+    else
+    {
+        monthTxt = month.ToString();
+    }
+
+    date = string.Concat(Model.Created.Year, "-", monthTxt, "-", dayTxt);
 }
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="@ViewData["editModalId"]" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,13 +54,13 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Date</label>
                         <div class="col-sm-4">
-                            <input type="date" name="Model.Created" value="@Model.Created.ToString("yyyy MMMM dd")" />
+                            <input type="date" name="Model.Created" value="@date" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Amount (g)</label>
                         <div class="col-sm-4">
-                            <input type="text" name="Model.MealAmount" value="@Model.MealAmount" />
+                            <input type="text" name="Model.MealAmount" value="@Model.MealAmount" class="form-control" />
                         </div>
                     </div>
                     <input type="hidden" name="Model.UserId" value="@Model.UserId" />

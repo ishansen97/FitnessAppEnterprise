@@ -5,7 +5,7 @@
 @{
 }
 
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="@ViewData["viewModalId"]" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,15 +27,15 @@
                         <p class="col-form-label">@Model.Created.ToString("MM/dd/yyyy")</p>
                     </div>
                 </div>
-                <div class="form-group row">
-                    @foreach (var field in Model.Fields)
-                    {
-                        <label class="col-sm-4 col-form-label">@field.Key</label>
-                        <div class="col-sm-4">
-                            <p>@field.Value</p>
-                        </div>
-                    }
-                </div>
+                @foreach (var field in Model.Fields)
+                {
+                    <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">@field.Key</label>
+                            <div class="col-sm-4">
+                                <p>@field.Value</p>
+                            </div>
+                    </div>
+                }
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label text-success">Calorie Expenditure</label>
                 </div>

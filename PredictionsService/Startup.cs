@@ -55,6 +55,7 @@ namespace PredictionsService
       });
 
       services.AddScoped<IPredictionConstantsService, PredictionConstantsService>();
+      services.AddScoped<IPredictionService, PredictionService>();
       services.AddSingleton<ModelHelper>();
       
     }

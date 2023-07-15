@@ -5,10 +5,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FitnessAppEnterprise.Extensions;
 using FitnessAppEnterprise.Models;
 using FitnessAppEnterprise.Models.Enums;
 using FitnessAppEnterprise.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace FitnessAppEnterprise.Controllers
 {
@@ -41,7 +43,39 @@ namespace FitnessAppEnterprise.Controllers
         ViewData["isError"] = true;
       }
 
+      // populate with the model.
+      var predictionModel = HttpContext.Session.GetObject<PredictionModel>("predictionModel");
+      if (predictionModel != null)
+      {
+        return View(predictionModel);
+      }
+
       return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> FindPrediction(IFormCollection form)
+    {
+      var formValue = form["predictionDate"];
+      var predictionDate = DateTime.Parse(formValue.ToString());
+      var accessModel = new PredictionAccessModel
+      {
+        UserId = GetUserId(),
+        PredictionDate = predictionDate
+      };
+
+      var response = await _remoteService.PostDataWithSpecialParamsAsync<PredictionAccessModel,PredictionModel>(
+                                        EndpointType.Predictions, accessModel, "predict");
+
+      // set to the session
+      HttpContext.Session.SetObject("predictionModel", response);
+      return RedirectToAction(nameof(Predictions));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(PredictionModel model)
+    {
+      return View(nameof(Predictions));
     }
 
     private string GetUserId()

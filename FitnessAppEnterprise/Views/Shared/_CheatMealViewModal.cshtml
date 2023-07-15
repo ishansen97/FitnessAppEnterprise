@@ -3,9 +3,10 @@
 *@
 @model CheatMealEditModel
 @{
+  var date = string.Concat(Model.Created.Year, "-", Model.Created.Month, "-", Model.Created.Day);
 }
 
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="@ViewData["viewModalId"]" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

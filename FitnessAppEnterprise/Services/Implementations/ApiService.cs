@@ -77,6 +77,27 @@ namespace FitnessAppEnterprise.Services.Implementations
       return response;
     }
 
+    public async Task<TOutput> PostDataWithSpecialParamsAsync<TData, TOutput>(EndpointType endpointType, TData data,
+      string path, string param = "")
+    {
+      var client = await InitializeHttpClient();
+      var contentString = JsonConvert.SerializeObject(data);
+      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Get); // special case
+      endpointUrl = string.Concat(endpointUrl, path, "/");
+      if (!string.IsNullOrEmpty(param))
+      {
+        endpointUrl = string.Concat(endpointUrl, param);
+      }
+
+      HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, endpointUrl);
+      message.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+      var response = await client.SendAsync(message);
+
+      var content = await response.Content.ReadAsStringAsync();
+      var modelData = JsonConvert.DeserializeObject<TOutput>(content);
+      return modelData;
+    }
+
     public async Task<CountModel> GetModelCountsAsync(string userId)
     {
       var endpointUrl = CreateEndpoint(EndpointType.Workout, HttpMethod.Get);

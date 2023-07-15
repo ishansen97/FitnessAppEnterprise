@@ -18,6 +18,9 @@ namespace FitnessAppEnterprise.Services.Interfaces
 
     Task<HttpResponseMessage> PostDataAsync<T>(EndpointType endpointType, T data);
 
+    Task<TOutput> PostDataWithSpecialParamsAsync<TData, TOutput>(EndpointType endpointType, TData data, string path,
+      string param = "");
+
     Task<CountModel> GetModelCountsAsync(string userId);
 
     Task<List<DetailModel>> GetDetailModels(EndpointType endpointType, string userId);

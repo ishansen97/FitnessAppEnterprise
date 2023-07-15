@@ -21,5 +21,23 @@ namespace PredictionsService.Helpers
 
       return model;
     }
+
+    public PredictionModel GetPredictionModelFromEntity(Prediction prediction)
+    {
+      var model = new PredictionModel
+      {
+        UserId = prediction.UserId,
+        BMI = prediction.BMI,
+        PredictedBMI = prediction.PredictedBMI,
+        PredictedWeight = prediction.PredictedWeight,
+        PredictedDate = prediction.PredictedDate,
+        CurrentWeight = prediction.CurrentWeight,
+        State = prediction.State.ToString(),
+        WeightStatus = prediction.WeightStatus.ToString(),
+        Message = prediction.Message
+      };
+
+      return model;
+    }
   }
 }
