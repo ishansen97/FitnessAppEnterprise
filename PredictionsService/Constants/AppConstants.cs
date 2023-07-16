@@ -9,5 +9,7 @@ namespace PredictionsService.Constants
   public class AppConstants
   {
     public const string MinimumActivityCount = "MinimumActivityCount";
+    public const string CalorieWeightFactor = "CalorieWeightFactor";
+    public const string KiloPerCalorie = "KiloPerCalorie";
   }
 }

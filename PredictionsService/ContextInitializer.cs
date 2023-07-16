@@ -21,18 +21,38 @@ namespace PredictionsService
         var context = scope.ServiceProvider.GetRequiredService<PredictionDbContext>();
         context.Database.Migrate();
 
-        if (!context.PredictionConstants.Any())
-        {
-          var predictionConstant = new PredictionConstant()
-          {
-            Name = AppConstants.MinimumActivityCount,
-            Value = "3"
-          };
+        NewConstantAddition(context);
 
-          context.PredictionConstants.Add(predictionConstant);
-          context.SaveChanges();
-        }
+        //if (!context.PredictionConstants.Any())
+        //{
+        //  var predictionConstant = new PredictionConstant()
+        //  {
+        //    Name = AppConstants.MinimumActivityCount,
+        //    Value = "3"
+        //  };
+
+        //  context.PredictionConstants.Add(predictionConstant);
+        //  context.SaveChanges();
+        //}
       }
+    }
+
+    private static void NewConstantAddition(PredictionDbContext context)
+    {
+      var kiloPerCalorie = new PredictionConstant
+      {
+        Name = AppConstants.KiloPerCalorie,
+        Value = "0.00013"
+      };
+
+      var calorieWeightFactor = new PredictionConstant
+      {
+        Name = AppConstants.CalorieWeightFactor,
+        Value = "0.06"
+      };
+
+      context.PredictionConstants.AddRange(new PredictionConstant[] { kiloPerCalorie, calorieWeightFactor });
+      context.SaveChanges();
     }
   }
 }

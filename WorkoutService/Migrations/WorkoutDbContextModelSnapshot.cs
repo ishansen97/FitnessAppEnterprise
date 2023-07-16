@@ -15,8 +15,8 @@ namespace WorkoutService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WorkoutService.Entity.CheatMeal", b =>
@@ -41,6 +41,48 @@ namespace WorkoutService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CheatMeals");
+                });
+
+            modelBuilder.Entity("WorkoutService.Entity.ExerciseMeasurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.Property<int>("WorkoutType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkoutType")
+                        .IsUnique();
+
+                    b.ToTable("ExerciseMeasurements");
+                });
+
+            modelBuilder.Entity("WorkoutService.Entity.MealMeasurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MealType")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MealType")
+                        .IsUnique();
+
+                    b.ToTable("MealMeasurements");
                 });
 
             modelBuilder.Entity("WorkoutService.Entity.Workout", b =>

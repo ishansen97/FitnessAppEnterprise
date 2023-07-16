@@ -18,13 +18,16 @@ namespace WorkoutService.Controllers
   {
     private readonly IWorkoutService _workoutService;
     private readonly ICheatMealService _cheatMealService;
+    private readonly IExerciseService _exerciseService;
 
     public WorkoutController(
       IWorkoutService workoutService, 
-      ICheatMealService cheatMealService)
+      ICheatMealService cheatMealService, 
+      IExerciseService exerciseService)
     {
       _workoutService = workoutService;
       _cheatMealService = cheatMealService;
+      _exerciseService = exerciseService;
     }
 
     // GET: api/<WorkoutController>
@@ -65,6 +68,16 @@ namespace WorkoutService.Controllers
       return details.ToList();
     }
 
+    // GET api/<WorkoutController>/user/{userId}
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<WorkoutEditModel>>> GetUserWorkouts(string userId)
+    {
+      var models = await _workoutService.GetUserWorkoutsAsync(userId);
+      if (!models.Any())
+        return NotFound();
+      return models.ToList();
+    }
+
     // GET api/<WorkoutController>/editDetail/{id}
     [HttpGet("editDetail/{id}")]
     public async Task<ActionResult<WorkoutEditModel>> GetEditWorkoutDetails(int id)
@@ -98,6 +111,15 @@ namespace WorkoutService.Controllers
     {
       await _workoutService.DeleteAsync(id);
       return Accepted();
+    }
+
+    // GET api/<WorkoutController>/exercisemeasurement/{workoutType}
+    [HttpGet("exercisemeasurement/{workoutType}")]
+    public async Task<ActionResult<ExerciseMeasurementModel>> GetExerciseMeasurement(string workoutType)
+    {
+      var model = await _exerciseService.GetExerciseMeasurement(workoutType);
+      if (model == null) return NotFound();
+      return model;
     }
   }
 }

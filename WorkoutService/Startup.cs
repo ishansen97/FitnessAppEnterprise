@@ -62,6 +62,8 @@ namespace WorkoutService
       });
       services.AddScoped<IWorkoutService, WorkoutHandler>();
       services.AddScoped<ICheatMealService, CheatMealService>();
+      services.AddScoped<IExerciseService, ExerciseService>();
+      services.AddScoped<IMealMeasurementService, MealMeasurementService>();
       services.AddSingleton<WorkoutTypeHelper>();
       services.AddSingleton<WorkoutModelHelper>();
     }
@@ -85,6 +87,9 @@ namespace WorkoutService
       {
         endpoints.MapControllers();
       });
+
+      // initialize the app
+      //AppInitializer.Seed(app);
     }
   }
 }

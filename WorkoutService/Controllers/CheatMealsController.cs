@@ -20,13 +20,16 @@ namespace WorkoutService.Controllers
   {
     private readonly WorkoutDbContext _context;
     private readonly ICheatMealService _cheatMealService;
+    private readonly IMealMeasurementService _mealMeasurementService;
 
     public CheatMealsController(
       WorkoutDbContext context,
-      ICheatMealService cheatMealService)
+      ICheatMealService cheatMealService,
+      IMealMeasurementService mealMeasurementService)
     {
       _context = context;
       _cheatMealService = cheatMealService;
+      _mealMeasurementService = mealMeasurementService;
     }
 
     // GET: api/CheatMeals
@@ -67,6 +70,17 @@ namespace WorkoutService.Controllers
       return model;
     }
 
+    // GET: api/CheatMeals/user/{userId}
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<CheatMealEditModel>>> GetUserCheatMeals(string userId)
+    {
+      var models = await _cheatMealService.GetUserCheatMeals(userId);
+      if (!models.Any()) 
+        return NotFound();
+      return models.ToList();
+    }
+
+
     // PUT: api/CheatMeals/5
     // To protect from overposting attacks, enable the specific properties you want to bind to, for
     // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -100,6 +114,15 @@ namespace WorkoutService.Controllers
     {
       await _cheatMealService.DeleteAsync(id);
       return Accepted();
+    }
+
+    // GET api/<WorkoutController>/mealmeasurement/{mealType}
+    [HttpGet("mealmeasurement/{mealType}")]
+    public async Task<ActionResult<MealMeasurementModel>> GetMealMeasurement(string mealType)
+    {
+      var model = await _mealMeasurementService.GetMealMeasurement(mealType);
+      if (model == null) return NotFound();
+      return model;
     }
 
     private bool CheatMealExists(int id)

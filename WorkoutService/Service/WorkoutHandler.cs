@@ -50,7 +50,7 @@ namespace WorkoutService.Service
       return workoutTypeModels;
     }
 
-    public async Task<IEnumerable<WorkoutAddModel>> GetUserWorkoutsAsync(string userId)
+    public async Task<IEnumerable<WorkoutAddModel>> GetUserAddWorkoutsAsync(string userId)
     {
       var workouts = await _context.Workouts
                                               .Where(wk => wk.UserId == userId)
@@ -102,6 +102,13 @@ namespace WorkoutService.Service
     {
       var workouts = await GetEntitiesAsync(workout => workout.UserId == userId);
       return _modelHelper.GetDetailModels(workouts);
+    }
+
+    public async Task<IEnumerable<WorkoutEditModel>> GetUserWorkoutsAsync(string userId)
+    {
+      var workouts = await GetEntitiesAsync(workout => workout.UserId == userId);
+      var editModels = _modelHelper.GetWorkoutEditModelsFromEntity(workouts.ToList());
+      return editModels;
     }
 
     public async Task<WorkoutEditModel> GetEditDetails(int id)

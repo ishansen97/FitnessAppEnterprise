@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PredictionsService.Context;
 using PredictionsService.Helpers;
+using PredictionsService.Logic.Calorie;
+using PredictionsService.Logic.Prediction;
 using PredictionsService.Services;
 using PredictionsService.Services.Interfaces;
 
@@ -54,10 +56,14 @@ namespace PredictionsService
         });
       });
 
+      services.AddHttpContextAccessor();
+      services.AddHttpClient();
       services.AddScoped<IPredictionConstantsService, PredictionConstantsService>();
       services.AddScoped<IPredictionService, PredictionService>();
+      services.AddScoped<IRemoteService, ApiService>();
       services.AddSingleton<ModelHelper>();
-      
+      services.AddScoped<PredictionEngine>();
+      services.AddScoped<CalorieCounter>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -77,6 +77,17 @@ namespace WorkoutService.Helpers
       return workoutEditModel;
     }
 
+    public IEnumerable<WorkoutEditModel> GetWorkoutEditModelsFromEntity(List<Workout> workouts)
+    {
+      List<WorkoutEditModel> editModels = new List<WorkoutEditModel>();
+      foreach (var workout in workouts)
+      {
+        editModels.Add(GetWorkoutEditModel(workout));
+      }
+
+      return editModels;
+    }
+
     public Workout GetWorkoutFromEditModel(WorkoutEditModel workoutEditModel)
     {
       var workout = new Workout
@@ -144,7 +155,7 @@ namespace WorkoutService.Helpers
       return models;
     }
 
-    public CheatMealEditModel GetCheatMealEditModels(CheatMeal cheatMeal)
+    public CheatMealEditModel GetCheatMealEditModel(CheatMeal cheatMeal)
     {
       var cheatMealEditModel = new CheatMealEditModel
       {
@@ -172,7 +183,6 @@ namespace WorkoutService.Helpers
       return workout;
     }
 
-    #endregion
 
     public IEnumerable<DetailModel> GetDetailModels<T>(IEnumerable<T> entities) where T : EntityBase
     {
@@ -188,6 +198,68 @@ namespace WorkoutService.Helpers
       return models.ToList();
     }
 
+    public IEnumerable<CheatMealEditModel> GetCheatMealEditModelsFromEntity(List<CheatMeal> cheatMeals)
+    {
+      List<CheatMealEditModel> editModels = new List<CheatMealEditModel>();
+      foreach (var cheatMeal in cheatMeals)
+      {
+        editModels.Add(GetCheatMealEditModel(cheatMeal));
+      }
+
+      return editModels;
+    }
+    #endregion
+
+    #region exercise measurement
+
+    public ExerciseMeasurementModel GetExerciseMeasurementModelFromEntity(ExerciseMeasurement measurement)
+    {
+      var model = new ExerciseMeasurementModel
+      {
+        Id = measurement.Id,
+        WorkoutType = measurement.WorkoutType.ToString(),
+        Value = measurement.Value
+      };
+      return model;
+    }
+
+    public ExerciseMeasurement GetExerciseMeasurementFromModel(ExerciseMeasurementModel model)
+    {
+      var entity = new ExerciseMeasurement
+      {
+        Id = model.Id,
+        WorkoutType = Enum.Parse<WorkoutType>(model.WorkoutType),
+        Value = model.Value
+      };
+      return entity;
+    }
+    #endregion
+
+    #region meal measurements
+
+    public MealMeasurementModel GetMealMeasurementModelFromEntity(MealMeasurement measurement)
+    {
+      var model = new MealMeasurementModel
+      {
+        Id = measurement.Id,
+        MealType = measurement.MealType.ToString(),
+        Value = measurement.Value
+      };
+      return model;
+    }
+
+    public MealMeasurement GetMealMeasurementFromModel(MealMeasurementModel model)
+    {
+      var entity = new MealMeasurement
+      {
+        Id = model.Id,
+        MealType = Enum.Parse<MealType>(model.MealType),
+        Value = model.Value
+      };
+      return entity;
+    }
+    #endregion
+
     private string GetTitle<T>(T entity) where T : EntityBase
     {
       if (entity is Workout wk)
@@ -200,7 +272,7 @@ namespace WorkoutService.Helpers
       }
 
       return string.Empty;
-    } 
+    }
 
     private int GetActivityType<T>(T entity) where T : EntityBase
     {
@@ -214,7 +286,7 @@ namespace WorkoutService.Helpers
       }
 
       return 0;
-    } 
+    }
 
 
   }

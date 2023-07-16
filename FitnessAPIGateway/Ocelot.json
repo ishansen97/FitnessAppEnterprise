@@ -84,6 +84,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     // end of user workout details
+    // get edit detail for workout
     {
       "DownstreamPathTemplate": "/api/workout/editDetail/{id}",
       "DownstreamScheme": "https",
@@ -96,6 +97,21 @@
       "UpstreamPathTemplate": "/apigateway/WorkoutService/editDetail/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
+    // end of get edit detail for workout
+    // get workouts for user
+    {
+      "DownstreamPathTemplate": "/api/workout/user/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/user/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get workouts for user
     // workout add
     {
       "DownstreamPathTemplate": "/api/workout/add/",
@@ -138,6 +154,20 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     // end of workout delete
+    // get exercise measurement
+    {
+      "DownstreamPathTemplate": "/api/workout/exercisemeasurement/{workoutType}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/exercisemeasurement/{workoutType}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get exercise measurement
     // cheat meal endpoint
     {
       "DownstreamPathTemplate": "/api/cheatmeals",
@@ -194,6 +224,20 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     // end of get edit detail for cheatmeal
+    // get user cheatmeals
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/user/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/user/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    // end of get user cheatmeals
     // update cheatmeal
     {
       "DownstreamPathTemplate": "/api/cheatmeals/update/{id}",
@@ -236,9 +280,9 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     // end of delete cheatmeal
-    // cheat meal types controller
+    // get meal measurement
     {
-      "DownstreamPathTemplate": "/api/cheatmealtypes",
+      "DownstreamPathTemplate": "/api/cheatmeals/mealmeasurement/{mealType}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -246,7 +290,21 @@
           "Port": 44379
         }
       ],
-      "UpstreamPathTemplate": "/apigateway/CheatMealTypesService",
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/mealmeasurement/{mealType}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    // end of get meal measurement
+    // cheat meal types controller
+    {
+      "DownstreamPathTemplate": "/api/cheatmealtypes/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealTypesService/",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
     },
     // end of cheat meal types controller
@@ -290,7 +348,35 @@
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/predict/",
       "UpstreamHttpMethod": [ "POST" ]
-    }
+    },
     // end of make prediction 
+    // authentication service endpoint
+    {
+      "DownstreamPathTemplate": "/api/appuser",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44384
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/AuthenticationService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // end of authentication service endpoint
+    // get user details
+    {
+      "DownstreamPathTemplate": "/api/appuser/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44384
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/AuthenticationService/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    }
+    // end of get user details
   ]
 }

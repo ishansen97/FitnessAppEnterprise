@@ -12,6 +12,8 @@ namespace PredictionsService.Context
   {
     public DbSet<PredictionConstant> PredictionConstants { get; set; }
 
+    public DbSet<Prediction> Predictions { get; set; }
+
     public PredictionDbContext(DbContextOptions<PredictionDbContext> options) : base(options)
     {
       

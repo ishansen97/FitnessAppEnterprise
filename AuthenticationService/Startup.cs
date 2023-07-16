@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using AuthenticationService.Configurations;
 using AuthenticationService.Data;
 using AuthenticationService.Data.Models;
+using AuthenticationService.Helpers;
+using AuthenticationService.Services.Implementations;
+using AuthenticationService.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
@@ -71,6 +74,10 @@ namespace AuthenticationService
           options.ConfigureDbContext = db => db.UseSqlServer(ConnectionString, b => b.MigrationsAssembly("AuthenticationService"));
         })
         .AddDeveloperSigningCredential(); // change the signing credential when moving to Azure.
+
+      services.AddScoped<IUserService, UserService>();
+      services.AddSingleton<ModelHelper>();
+      services.AddControllers();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +106,7 @@ namespace AuthenticationService
         endpoints.MapControllerRoute(
           name: "default",
           pattern: "{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapControllers();
       });
 
       // this is to initialize the database.

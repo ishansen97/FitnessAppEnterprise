@@ -11,8 +11,8 @@
         <h3>Make your Fitness Predictions here!!</h3>
     </div>
     @if (ViewData["isError"] != null &&
-       bool.TryParse(ViewData["isError"].ToString(), out var boolVal) &&
-       boolVal)
+         bool.TryParse(ViewData["isError"].ToString(), out var boolVal) &&
+         boolVal)
     {
         <div class="alert alert-danger">
             <span>@message</span>
@@ -32,11 +32,26 @@
         @*prediction model data*@
         <form asp-action="Create" method="post">
             <input type="hidden" name="Model.UserId" value="@Model.UserId" />
+            <input type="hidden" name="Model.PredictedDate" value="@Model.PredictedDate" />
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Current Weight</label>
                 <div class="col-sm-4">
                     <p>@Model.CurrentWeight <span>Kg</span> </p>
                     <input type="hidden" name="Model.CurrentWeight" value="@Model.CurrentWeight" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Current BMI</label>
+                <div class="col-sm-4">
+                    <p>@Model.BMI</p>
+                    <input type="hidden" name="Model.BMI" value="@Model.BMI" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Predicted BMI</label>
+                <div class="col-sm-4">
+                    <p>@Model.PredictedBMI</p>
+                    <input type="hidden" name="Model.PredictedBMI" value="@Model.PredictedBMI" />
                 </div>
             </div>
             <div class="form-group row">
@@ -63,6 +78,11 @@
                     <p>@Model.Message</p>
                 </div>
                 <input type="hidden" name="Model.Message" value="@Model.Message" />
+            </div>
+            <div class="form-group row">
+                <div class="text-center">
+                    <button id="btnPredictionAdd" class="btn btn-success"></button>
+                </div>
             </div>
         </form>
     }

@@ -21,6 +21,8 @@ namespace WorkoutService.Service.Interfaces
 
     Task<CheatMealEditModel> GetEditDetails(int id);
 
+    Task<IEnumerable<CheatMealEditModel>> GetUserCheatMeals(string userId);
+
     Task UpdateCheatMealAsync(int id, CheatMealEditModel model);
   }
 }
