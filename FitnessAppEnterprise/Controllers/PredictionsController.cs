@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -75,6 +76,25 @@ namespace FitnessAppEnterprise.Controllers
     [HttpPost]
     public async Task<IActionResult> Create(PredictionModel model)
     {
+      var response = await _remoteService.PostDataAsync(EndpointType.Predictions, model);
+      if (response.StatusCode == HttpStatusCode.OK) // temporary
+      {
+        return RedirectToAction("Index", "Home");
+      }
+      return View(nameof(Predictions));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ViewPredictions()
+    {
+      var response =
+        await _remoteService.GetMultipleModelDataAsync<PredictionModel>(EndpointType.Predictions, HttpMethod.Get, "user", GetUserId());
+
+      if (!response.Any())
+      {
+        ViewData["isPredictions"] = false;
+      }
+
       return View(nameof(Predictions));
     }
 

@@ -45,6 +45,8 @@ namespace FitnessAppEnterprise
           config.GetClaimsFromUserInfoEndpoint = true;
           config.Scope.Add("APIWorkout");
           config.Scope.Add("APIPredictions");
+          config.Scope.Add("APIWeeklyView");
+          config.Scope.Add("APIReport");
           config.Scope.Add("offline_access");
 
         });
@@ -53,6 +55,7 @@ namespace FitnessAppEnterprise
       services.AddHttpContextAccessor();
       services.AddScoped<IRemoteService, ApiService>();
       services.AddSingleton<ModelHelper>();
+      services.AddSingleton<DateHelper>();
       services.AddDistributedMemoryCache();
       services.AddSession();
       services.AddControllersWithViews();

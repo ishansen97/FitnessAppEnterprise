@@ -121,5 +121,15 @@ namespace WorkoutService.Controllers
       if (model == null) return NotFound();
       return model;
     }
+
+    // POST api/<WorkoutController>/weeklyview/{userId}
+    [HttpPost("weeklyview/{userId}")]
+    public async Task<ActionResult<IEnumerable<WorkoutEditModel>>> GetUserWeeklyWorkouts(string userId, [FromBody]ActivityAccessModel accessModel)
+    {
+      if (accessModel == null) return BadRequest();
+      var model = await _workoutService.GetWeeklyWorkouts(userId, accessModel);
+      if (model == null) return NotFound();
+      return model.ToList();
+    }
   }
 }

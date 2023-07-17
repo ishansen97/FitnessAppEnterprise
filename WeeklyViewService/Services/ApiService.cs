@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using FitnessAppEnterprise.Extensions;
-using FitnessAppEnterprise.Helpers;
-using FitnessAppEnterprise.Models;
-using FitnessAppEnterprise.Models.Enums;
-using FitnessAppEnterprise.Services.Interfaces;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using WeeklyViewService.Helpers;
+using WeeklyViewService.Model.Enums;
+using WeeklyViewService.Services;
+using WeeklyViewService.Services.Interfaces;
 
-namespace FitnessAppEnterprise.Services.Implementations
+namespace WeeklyViewService.Services
 {
   public class ApiService : RemoteService, IRemoteService
   {
     private readonly ModelHelper _modelHelper;
 
     public ApiService(
-      IConfiguration configuration, 
-      IHttpContextAccessor contextAccessor, 
-      IHttpClientFactory clientFactory, 
-      ModelHelper modelHelper) 
+      IConfiguration configuration,
+      IHttpContextAccessor contextAccessor,
+      IHttpClientFactory clientFactory,
+      ModelHelper modelHelper)
       : base(configuration, contextAccessor, clientFactory)
     {
       _modelHelper = modelHelper;
     }
 
-    public async Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod, string path = "",
-      string param = "")
+    public async Task<T> GetSingleModelDataAsync<T>(EndpointType endpointType, HttpMethod httpMethod, string path = "", string param = "")
     {
       var endpointUrl = CreateEndpoint(endpointType, httpMethod);
       if (!string.IsNullOrEmpty(path))
@@ -86,8 +85,8 @@ namespace FitnessAppEnterprise.Services.Implementations
       return response;
     }
 
-    public async Task<TOutput> PostDataWithSpecialParamsAsync<TData, TOutput>(EndpointType endpointType, TData data,
-      string path, string param = "")
+    public async Task<TOutput> PostDataWithSpecialParamsAsync<TData, TOutput>(EndpointType endpointType, TData data, string path,
+      string param = "") where TOutput: new()
     {
       var client = await InitializeHttpClient();
       var contentString = JsonConvert.SerializeObject(data);
@@ -101,38 +100,14 @@ namespace FitnessAppEnterprise.Services.Implementations
       HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, endpointUrl);
       message.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
       var response = await client.SendAsync(message);
+      if (response.StatusCode == HttpStatusCode.NotFound)
+      {
+        return new TOutput();
+      }
 
       var content = await response.Content.ReadAsStringAsync();
       var modelData = JsonConvert.DeserializeObject<TOutput>(content);
       return modelData;
-    }
-
-    public async Task<CountModel> GetModelCountsAsync(string userId)
-    {
-      var endpointUrl = CreateEndpoint(EndpointType.Workout, HttpMethod.Get);
-      var countEndpoint = string.Concat(endpointUrl, "count/", userId);
-      var client = await InitializeHttpClient();
-
-      var response = await client.GetAsync(countEndpoint);
-
-      var result = await response.Content.ReadAsStringAsync();
-      var model = JsonConvert.DeserializeObject<CountModel>(result);
-
-      return model;
-    }
-
-    public async Task<List<DetailModel>> GetDetailModels(EndpointType endpointType, string userId)
-    {
-      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Get);
-      var detailsEndPoint = string.Concat(endpointUrl, "details/", userId);
-      var client = await InitializeHttpClient();
-
-      var response = await client.GetAsync(detailsEndPoint);
-
-      var result = await response.Content.ReadAsStringAsync();
-      var model = JsonConvert.DeserializeObject<List<DetailModel>>(result);
-
-      return model;
     }
 
     public async Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, int id, T data)

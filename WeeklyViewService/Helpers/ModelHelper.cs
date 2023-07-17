@@ -4,65 +4,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using PredictionsService.Entity;
-using PredictionsService.Entity.Enum;
-using PredictionsService.Model;
-using PredictionsService.Model.Enums;
+using WeeklyViewService.Model.Enums;
 
-namespace PredictionsService.Helpers
+namespace WeeklyViewService.Helpers
 {
   public class ModelHelper
   {
-    public PredictionConstantsModel GetPredictionConstantModelFromEntity(PredictionConstant predictionConstant)
-    {
-      var model = new PredictionConstantsModel()
-      {
-        Id = predictionConstant.Id,
-        Name = predictionConstant.Name,
-        Value = predictionConstant.Value
-      };
-
-      return model;
-    }
-
-    public PredictionModel GetPredictionModelFromEntity(Prediction prediction)
-    {
-      var model = new PredictionModel
-      {
-        UserId = prediction.UserId,
-        BMI = prediction.BMI,
-        PredictedBMI = prediction.PredictedBMI,
-        PredictedWeight = prediction.PredictedWeight,
-        PredictedDate = prediction.PredictedDate,
-        CurrentWeight = prediction.CurrentWeight,
-        State = prediction.State.ToString(),
-        WeightStatus = prediction.WeightStatus.ToString(),
-        Message = prediction.Message
-      };
-
-      return model;
-    }
-
-    public Prediction GetPredictionFromModel(PredictionModel model)
-    {
-      var prediction = new Prediction
-      {
-        UserId = model.UserId,
-        BMI = model.BMI,
-        PredictedBMI = model.PredictedBMI,
-        PredictedWeight = model.PredictedWeight,
-        PredictedDate = model.PredictedDate,
-        CurrentWeight = model.CurrentWeight,
-        State = Enum.Parse<PredictionState>(model.State),
-        WeightStatus = Enum.Parse<PredictedWeightStatus>(model.WeightStatus),
-        Message = model.Message
-      };
-
-      return prediction;
-    }
-
-
-
     public string GetEndpoint(EndpointType endpoint)
     {
       string endpointUrl = string.Empty;

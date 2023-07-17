@@ -116,13 +116,23 @@ namespace WorkoutService.Controllers
       return Accepted();
     }
 
-    // GET api/<WorkoutController>/mealmeasurement/{mealType}
+    // GET api/cheatmeals/mealmeasurement/{mealType}
     [HttpGet("mealmeasurement/{mealType}")]
     public async Task<ActionResult<MealMeasurementModel>> GetMealMeasurement(string mealType)
     {
       var model = await _mealMeasurementService.GetMealMeasurement(mealType);
       if (model == null) return NotFound();
       return model;
+    }
+
+    // POST api/cheatmeals/weeklyview/{userId}
+    [HttpPost("weeklyview/{userId}")]
+    public async Task<ActionResult<IEnumerable<CheatMealEditModel>>> GetUserWeeklyCheatMeals(string userId, [FromBody] ActivityAccessModel accessModel)
+    {
+      if (accessModel == null) return BadRequest();
+      var model = await _cheatMealService.GetWeeklyCheatMeals(userId, accessModel);
+      if (model == null) return NotFound();
+      return model.ToList();
     }
 
     private bool CheatMealExists(int id)

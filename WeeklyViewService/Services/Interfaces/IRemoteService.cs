@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using FitnessAppEnterprise.Models;
-using FitnessAppEnterprise.Models.Enums;
-using Microsoft.AspNetCore.Http;
+using WeeklyViewService.Model.Enums;
 
-namespace FitnessAppEnterprise.Services.Interfaces
+namespace WeeklyViewService.Services.Interfaces
 {
   public interface IRemoteService
   {
@@ -20,11 +18,7 @@ namespace FitnessAppEnterprise.Services.Interfaces
     Task<HttpResponseMessage> PostDataAsync<T>(EndpointType endpointType, T data);
 
     Task<TOutput> PostDataWithSpecialParamsAsync<TData, TOutput>(EndpointType endpointType, TData data, string path,
-      string param = "");
-
-    Task<CountModel> GetModelCountsAsync(string userId);
-
-    Task<List<DetailModel>> GetDetailModels(EndpointType endpointType, string userId);
+      string param = "") where TOutput : new();
 
     Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, int id, T data);
 

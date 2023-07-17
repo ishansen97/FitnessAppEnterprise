@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using WorkoutService.Context;
 using WorkoutService.Entity;
 using WorkoutService.Entity.Enums;
@@ -78,6 +79,18 @@ namespace WorkoutService.Service
     {
       var cheatMeal = _modelHelper.GetCheatMealFromEditModel(model);
       await UpdateAsync(id, cheatMeal);
+    }
+
+    public async Task<IEnumerable<CheatMealEditModel>> GetWeeklyCheatMeals(string userId, ActivityAccessModel accessModel)
+    {
+      var cheatMeals = await GetEntitiesAsync(cheatMeal =>
+        (cheatMeal.Created >= accessModel.StartDate) && (cheatMeal.Created <= accessModel.EndDate));
+      if (cheatMeals.Any())
+      {
+        return _modelHelper.GetCheatMealEditModelsFromEntity(cheatMeals.ToList());
+      }
+
+      return null;
     }
   }
 }

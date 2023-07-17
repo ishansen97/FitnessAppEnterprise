@@ -117,5 +117,17 @@ namespace WorkoutService.Service
       var workout = workouts.First();
       return _modelHelper.GetWorkoutEditModel(workout);
     }
+
+    public async Task<IEnumerable<WorkoutEditModel>> GetWeeklyWorkouts(string userId, ActivityAccessModel accessModel)
+    {
+      var weeklyWorkouts = await GetEntitiesAsync(workout =>
+        (workout.Created >= accessModel.StartDate) && (workout.Created <= accessModel.EndDate));
+      if (weeklyWorkouts.Any())
+      {
+        return _modelHelper.GetWorkoutEditModelsFromEntity(weeklyWorkouts.ToList());
+      }
+
+      return null;
+    }
   }
 }

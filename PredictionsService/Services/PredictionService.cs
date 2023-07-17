@@ -50,5 +50,22 @@ namespace PredictionsService.Services
         var model = _modelHelper.GetPredictionModelFromEntity(prediction);
         return model;
       }
+
+      public async Task CreateUserPrediction(PredictionModel model)
+      {
+        var entity = _modelHelper.GetPredictionFromModel(model);
+        await AddAsync(entity);
+      }
+
+      public async Task<PredictionModel> GetPredictionById(int id)
+      {
+        var entity = await GetByIdAsync(id);
+        if (entity != null)
+        {
+          return _modelHelper.GetPredictionModelFromEntity(entity);
+        }
+
+        return null;
+      }
     }
 }

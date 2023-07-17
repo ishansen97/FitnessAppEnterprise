@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using WorkoutService.Entity;
 using WorkoutService.Model;
 using WorkoutService.Repository.Interfaces;
@@ -30,5 +31,7 @@ namespace WorkoutService.Service.Interfaces
     Task<IEnumerable<WorkoutEditModel>> GetUserWorkoutsAsync(string userId);
 
     Task<WorkoutEditModel> GetEditDetails(int id);
+
+    Task<IEnumerable<WorkoutEditModel>> GetWeeklyWorkouts(string userId, ActivityAccessModel accessModel);
   }
 }

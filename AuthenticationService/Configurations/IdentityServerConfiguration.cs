@@ -30,6 +30,8 @@ namespace AuthenticationService.Configurations
           {
             "APIWorkout", 
             "APIPredictions",
+            "APIWeeklyView",
+            "APIReport",
             IdentityServerConstants.StandardScopes.OpenId,
             IdentityServerConstants.StandardScopes.Profile,
           },
@@ -51,7 +53,16 @@ namespace AuthenticationService.Configurations
           Name = "APIPredictions",
           Scopes = { "APIPredictions" }
         },
-
+        new ApiResource
+        {
+          Name = "APIWeeklyView",
+          Scopes = { "APIWeeklyView" }
+        },
+        new ApiResource
+        {
+          Name = "APIReport",
+          Scopes = { "APIReport" }
+        }
       };
 
     public static IEnumerable<ApiScope> GetApiScopes() =>
@@ -59,6 +70,8 @@ namespace AuthenticationService.Configurations
       {
         new ApiScope("APIWorkout"),
         new ApiScope("APIPredictions"),
+        new ApiScope("APIWeeklyView"),
+        new ApiScope("APIReport"),
       };
   }
 }

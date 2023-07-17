@@ -18,6 +18,9 @@
             <span>@message</span>
         </div>
     }
+    <div class="form-inline row">
+        <a  class="btn btn-danger"></a>
+    </div>
     <form asp-action="FindPrediction" method="post">
         <div class="form-inline row">
             <label class="col-form-label col-sm-3">Select Date</label>
@@ -30,37 +33,37 @@
     @if (Model != null)
     {
         @*prediction model data*@
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" class="mr-5">
             <input type="hidden" name="Model.UserId" value="@Model.UserId" />
             <input type="hidden" name="Model.PredictedDate" value="@Model.PredictedDate" />
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Current Weight</label>
                 <div class="col-sm-4">
-                    <p>@Model.CurrentWeight <span>Kg</span> </p>
+                    <p class="col-form-label">@Model.CurrentWeight <span>Kg</span> </p>
                     <input type="hidden" name="Model.CurrentWeight" value="@Model.CurrentWeight" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Current BMI</label>
                 <div class="col-sm-4">
-                    <p>@Model.BMI</p>
+                    <p class="col-form-label">@Model.BMI</p>
                     <input type="hidden" name="Model.BMI" value="@Model.BMI" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Predicted BMI</label>
                 <div class="col-sm-4">
-                    <p>@Model.PredictedBMI</p>
+                    <p class="col-form-label">@Model.PredictedBMI</p>
                     <input type="hidden" name="Model.PredictedBMI" value="@Model.PredictedBMI" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Predicted Weight/Status</label>
-                <div class="col-sm-4">
-                    <p>@Model.PredictedWeight <span>Kg</span> </p>
+                <div class="col-sm-3">
+                    <p class="col-form-label">@Model.PredictedWeight <span>Kg</span> </p>
                 </div>
                 <div class="col-sm-2">
-                    <p>@Model.WeightStatus</p>
+                    <p class="col-form-label">@Model.WeightStatus</p>
                 </div>
                 <input type="hidden" name="Model.PredictedWeight" value="@Model.PredictedWeight" />
                 <input type="hidden" name="Model.WeightStatus" value="@Model.WeightStatus" />
@@ -68,20 +71,20 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Status</label>
                 <div class="col-sm-4">
-                    <p>@Model.State</p>
+                    <p class="col-form-label">@Model.State</p>
                 </div>
                 <input type="hidden" name="Model.State" value="@Model.State" />
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Message</label>
                 <div class="col-sm-4">
-                    <p>@Model.Message</p>
+                    <p class="col-form-label">@Model.Message</p>
                 </div>
                 <input type="hidden" name="Model.Message" value="@Model.Message" />
             </div>
             <div class="form-group row">
                 <div class="text-center">
-                    <button id="btnPredictionAdd" class="btn btn-success"></button>
+                    <button id="btnPredictionAdd" class="btn btn-success">Save Prediction</button>
                 </div>
             </div>
         </form>

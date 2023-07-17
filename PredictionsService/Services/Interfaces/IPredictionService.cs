@@ -12,5 +12,9 @@ namespace PredictionsService.Services.Interfaces
   public interface IPredictionService : IEntityBaseRepository<Prediction>
   {
     Task<PredictionModel> GetUserPredictionAsync(PredictionAccessModel accessModel);
+
+    Task CreateUserPrediction(PredictionModel model);
+
+    Task<PredictionModel> GetPredictionById(int id);
   }
 }

@@ -38,9 +38,11 @@ namespace PredictionsService.Controllers
 
     // GET api/<PredictionsController>/5
     [HttpGet("{id}")]
-    public string Get(int id)
+    public async Task<ActionResult<PredictionModel>> Get(int id)
     {
-      return "value";
+      var model = await _predictionService.GetPredictionById(id);
+      if (model == null) return NotFound();
+      return model;
     }
 
     // GET api/<PredictionsController>/predict/
@@ -62,10 +64,21 @@ namespace PredictionsService.Controllers
       return model;
     }
 
-    // POST api/<PredictionsController>
-    [HttpPost]
-    public void Post([FromBody] string value)
+    // POST api/<PredictionsController>/add
+    [HttpPost("add")]
+    public async Task<ActionResult> Post([FromBody] PredictionModel model)
     {
+      if (model == null) return BadRequest();
+      try
+      {
+        await _predictionService.CreateUserPrediction(model);
+      }
+      catch (Exception ex)
+      {
+        return NotFound(ex);
+      }
+
+      return Ok();
     }
 
     // PUT api/<PredictionsController>/5

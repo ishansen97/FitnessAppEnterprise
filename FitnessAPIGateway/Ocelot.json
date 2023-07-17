@@ -168,6 +168,20 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     // end of get exercise measurement
+    // get user weekly workouts
+    {
+      "DownstreamPathTemplate": "/api/workout/weeklyview/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WorkoutService/weeklyview/{userId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // end of get user weekly workouts
     // cheat meal endpoint
     {
       "DownstreamPathTemplate": "/api/cheatmeals",
@@ -294,6 +308,20 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     // end of get meal measurement
+    // get user weekly cheat meals
+    {
+      "DownstreamPathTemplate": "/api/cheatmeals/weeklyview/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44379
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/CheatMealsService/weeklyview/{userId}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // end of get user weekly cheat meals
     // cheat meal types controller
     {
       "DownstreamPathTemplate": "/api/cheatmealtypes/",
@@ -350,6 +378,18 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     // end of make prediction 
+    {
+      "DownstreamPathTemplate": "/api/predictions/add",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44367
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/PredictionsService/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
     // authentication service endpoint
     {
       "DownstreamPathTemplate": "/api/appuser",
@@ -376,7 +416,35 @@
       ],
       "UpstreamPathTemplate": "/apigateway/AuthenticationService/{userId}",
       "UpstreamHttpMethod": [ "GET" ]
-    }
+    },
     // end of get user details
+    // weekly view endpoint
+    {
+      "DownstreamPathTemplate": "/api/weeklyview",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44317
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WeeklyViewService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // end of weekly view endpoint
+    // get weekly details
+    {
+      "DownstreamPathTemplate": "/api/weeklyview/details/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44317
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/WeeklyViewService/details/",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+    // end of get weekly details
   ]
 }

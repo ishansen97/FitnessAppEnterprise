@@ -8,6 +8,7 @@ using AuthenticationService.Configurations;
 using AuthenticationService.Data.Models;
 using IdentityModel;
 using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -29,11 +30,41 @@ namespace AuthenticationService.Data
 
         AddIdentityServerData(configurationDbContext);
 
+        // update client
+        var client = configurationDbContext.Clients.FirstOrDefault(client => client.ClientId == "mvc_client");
+        var currentClient = IdentityServerConfiguration.GetClients().ToList()[0];
+        var entityClient = currentClient.ToEntity();
+        client.AllowedScopes = entityClient.AllowedScopes;
+        //var scopes = client.AllowedScopes;
+        //client.AllowedScopes.AddRange(new List<ClientScope>()
+        //{
+        //  new ClientScope() {Scope = "APIWeeklyView"},
+        //  new ClientScope() {Scope = "APIReport"}
+        //});
+        configurationDbContext.Update(client);
+        configurationDbContext.SaveChanges();
+
+        // add new api resources
+        var apiResources = IdentityServerConfiguration.GetApiResources().Skip(2).ToList();
+        foreach (var apiResource in apiResources)
+        {
+          configurationDbContext.ApiResources.Add(apiResource.ToEntity());
+        }
+        configurationDbContext.SaveChanges();
+
+        // add new api scopes
+        var apiScopes = IdentityServerConfiguration.GetApiScopes().Skip(2).ToList();
+        foreach (var apiScope in apiScopes)
+        {
+          configurationDbContext.ApiScopes.Add(apiScope.ToEntity());
+        }
+        configurationDbContext.SaveChanges();
+
 
         var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
         context.Database.Migrate();
 
-        AddBusinessData(context, serviceScope).GetAwaiter().GetResult();
+        //AddBusinessData(context, serviceScope).GetAwaiter().GetResult();
       }
     }
 

@@ -2,11 +2,44 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var weeklyText = string.Empty;
+    var date = DateTime.Today;
+    var rightBtnDisabled = false;
+    if (ViewData["weeklyText"] != null)
+    {
+        weeklyText = ViewData["weeklyText"].ToString();
+    }
+    if (ViewData["date"] != null)
+    {
+        date = (DateTime)ViewData["date"];
+    }
+    if (ViewData["disableRightBtn"] != null && bool.TryParse(ViewData["disableRightBtn"].ToString(), out rightBtnDisabled))
+    {
+    }
 }
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 text-center">
+        <div class="col-sm-12 text-center mb-3">
             <h2>Weekly View</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <a asp-action="Index" asp-route-date="@date.AddDays(-7)" class="btn btn-success text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="col-8 text-center">
+            <h4>@weeklyText</h4>
+        </div>
+        <div class="col-2">
+            <a asp-action="Index" asp-route-date="@date.AddDays(7)" class="btn btn-success text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </a>
         </div>
     </div>
 </div>
