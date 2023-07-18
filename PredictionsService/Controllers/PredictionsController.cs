@@ -54,6 +54,15 @@ namespace PredictionsService.Controllers
       return model;
     }
 
+    // POST api/<PredictionsController>/calorie/{userId}
+    [HttpPost("calorie/{userId}")]
+    public async Task<ActionResult<CalorieResponseModel>> GetCalorieCalculations(string userId, [FromBody] CalorieRequestModel request)
+    {
+      if (request == null) return BadRequest();
+      var response = await _predictionService.GetCalorieDetails(userId, request);
+      return response;
+    }
+
     // GET api/<PredictionsController>/minimumCount
     [HttpGet("minimumCount/")]
     public async Task<ActionResult<PredictionConstantsModel>> GetMinimumCount()

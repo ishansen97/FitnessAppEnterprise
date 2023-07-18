@@ -378,6 +378,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     // end of make prediction 
+    // add prediction
     {
       "DownstreamPathTemplate": "/api/predictions/add",
       "DownstreamScheme": "https",
@@ -388,6 +389,19 @@
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    // end of add prediction
+    {
+      "DownstreamPathTemplate": "/api/predictions/calorie/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44367
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/PredictionsService/calorie/{userId}",
       "UpstreamHttpMethod": [ "POST" ]
     },
     // authentication service endpoint
@@ -444,7 +458,34 @@
       ],
       "UpstreamPathTemplate": "/apigateway/WeeklyViewService/details/",
       "UpstreamHttpMethod": [ "POST" ]
-    }
+    },
     // end of get weekly details
+    // report service
+    {
+      "DownstreamPathTemplate": "/api/report",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44344
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ReportService",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "Delete" ]
+    },
+    // end of report service
+    {
+      "DownstreamPathTemplate": "/api/report/add",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44317
+        }
+      ],
+      "UpstreamPathTemplate": "/apigateway/ReportService/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+
   ]
 }

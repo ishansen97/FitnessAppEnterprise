@@ -52,5 +52,14 @@ namespace FitnessAppEnterprise.Helpers
       var splitted = dateString.Split(' ');
       return string.Concat(splitted[1], " ", splitted[2]);
     }
+
+    public string GetMonthAndDateNoGap(DateTime date)
+    {
+      var dateString = date.ToString("yyyy MMMM dd");
+      var splitted = dateString.Split(' ');
+      return string.Concat(splitted[1], splitted[2]);
+    }
+
+
   }
 }

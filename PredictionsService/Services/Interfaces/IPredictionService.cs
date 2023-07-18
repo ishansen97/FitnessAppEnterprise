@@ -16,5 +16,7 @@ namespace PredictionsService.Services.Interfaces
     Task CreateUserPrediction(PredictionModel model);
 
     Task<PredictionModel> GetPredictionById(int id);
+
+    Task<CalorieResponseModel> GetCalorieDetails(string userId, CalorieRequestModel request);
   }
 }

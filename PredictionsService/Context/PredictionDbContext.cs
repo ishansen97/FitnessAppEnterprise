@@ -16,7 +16,6 @@ namespace PredictionsService.Context
 
     public PredictionDbContext(DbContextOptions<PredictionDbContext> options) : base(options)
     {
-      
     }
   }
 }
