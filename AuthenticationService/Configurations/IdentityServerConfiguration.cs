@@ -36,6 +36,7 @@ namespace AuthenticationService.Configurations
             IdentityServerConstants.StandardScopes.Profile,
           },
           RedirectUris = { "https://localhost:44372/signin-oidc" },
+          PostLogoutRedirectUris = { "https://localhost:44372/Home/FirstPage" },
           AllowOfflineAccess = true
         }
       };

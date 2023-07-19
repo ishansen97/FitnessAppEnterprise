@@ -49,8 +49,8 @@ namespace ReportService
 
       services.AddHttpContextAccessor();
       services.AddHttpClient();
-      services.AddScoped<IRemoteService, ApiService>();
       services.AddScoped<IReportService, ReportHandler>();
+      services.AddScoped<IRemoteService, ApiService>();
       services.AddSingleton<ModelHelper>();
     }
 
@@ -65,7 +65,9 @@ namespace ReportService
       app.UseHttpsRedirection();
 
       app.UseRouting();
+      app.UseStaticFiles();
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

@@ -134,7 +134,7 @@ namespace ReportService.Services
     private string CreateEndpoint(EndpointType endpointType, HttpMethod httpMethod)
     {
       //var baseUrl = Configuration.GetValue<string>("WorkoutBaseUrl");
-      var baseUrl = Configuration.GetValue<string>("AuthenticationUrl");
+      var baseUrl = Configuration.GetValue<string>("BaseUrl");
       var endpoint = _modelHelper.GetEndpoint(endpointType);
       var resource = _modelHelper.GetResourceByHttpMethod(httpMethod);
       var endpointUrl = string.Concat(baseUrl, endpoint, "/", resource);

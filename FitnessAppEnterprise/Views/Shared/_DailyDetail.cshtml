@@ -59,12 +59,12 @@
                         <i class="fa-solid fa-bowl-food"></i>
                     </a>
                 }
-                <form asp-action="Report" asp-controller="WeeklyView" method="post">
-                    <input type="hidden" name="Model" value="@Model" />
-                    <button class="btn btn-secondary text-white mr-1">
-                        <i class="fa-solid fa-receipt"></i>
-                    </button>
-                </form>
+                <a asp-action="Report" asp-controller="WeeklyView" asp-route-date="@Model.Created" class="btn btn-secondary text-white mr-1">
+                    <i class="fa-solid fa-receipt"></i>
+                </a>
+                @*<form asp-action="Report" asp-controller="WeeklyView" method="post">
+                    <input type="hidden" name="created" value="@Model.Created"/>
+                </form>*@
             </div>
         }
     </div>

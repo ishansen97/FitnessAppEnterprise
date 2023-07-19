@@ -58,6 +58,7 @@ namespace AuthenticationService
       {
         config.Cookie.Name = "IdentityServer.Cookie";
         config.LoginPath = "/Auth/Login";
+        config.LogoutPath = "/Auth/Logout";
       });
 
       // configuring the IdentityServer service.

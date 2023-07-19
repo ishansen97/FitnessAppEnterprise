@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FitnessAppEnterprise.Services.Interfaces;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace FitnessAppEnterprise.Controllers
 {
-  [Authorize]
   public class HomeController : Controller
   {
     private readonly ILogger<HomeController> _logger;
@@ -32,6 +32,12 @@ namespace FitnessAppEnterprise.Controllers
       _remoteService = remoteService;
     }
 
+    public IActionResult FirstPage()
+    {
+      return View();
+    }
+
+    [Authorize]
     public async Task<IActionResult> Index()
     {
       var userName = GetUserName();
@@ -39,6 +45,10 @@ namespace FitnessAppEnterprise.Controllers
       ViewData["userName"] = userName;
 
       var countModel = await _remoteService.GetModelCountsAsync(userId);
+      if (countModel == null)
+      {
+        return RedirectToAction(nameof(Logout));
+      }
       return View(countModel);
     }
 
@@ -46,6 +56,11 @@ namespace FitnessAppEnterprise.Controllers
     {
       var accessToken = await HttpContext.GetTokenAsync("access_token");
       return View();
+    }
+
+    public IActionResult Logout()
+    {
+      return SignOut("Cookie", "oidc");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

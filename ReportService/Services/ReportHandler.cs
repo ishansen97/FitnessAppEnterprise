@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using PredictionsService.Helpers;
 using ReportService.Context;
 using ReportService.Entity;
@@ -19,9 +20,10 @@ namespace ReportService.Services
     private readonly IRemoteService _remoteService;
 
     public ReportHandler(
-      AppDbContext context,
+      //AppDbContext context,
       ModelHelper modelHelper,
-      IRemoteService remoteService) : base(context)
+      IRemoteService remoteService,
+      IWebHostEnvironment env) : base(env)
     {
       _modelHelper = modelHelper;
       _remoteService = remoteService;
@@ -41,16 +43,11 @@ namespace ReportService.Services
 
       // check for existing daily report
       Report report = null;
-      var dailyReports = await GetEntitiesAsync(report => report.Created == model.Created);
-      if (dailyReports.Any())
-      {
-        report = dailyReports.ToList().First();
-      }
-
       if (calorieResponse != null)
       {
         report = new Report()
         {
+          Id = model.Id,
           CalorieExpenditure = calorieResponse.CalorieExpenditure,
           CalorieIntake = calorieResponse.CalorieIntake,
           IsSurplus = calorieResponse.IsSurplus,
@@ -58,9 +55,10 @@ namespace ReportService.Services
         };
 
         report = await AddAsync(report);
+        return _modelHelper.GetReportModelFromReport(report);
       }
 
-      return _modelHelper.GetReportModelFromReport(report);
+      return null;
     }
   }
 }

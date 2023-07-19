@@ -66,10 +66,9 @@ namespace FitnessAppEnterprise.Controllers
       return View(response);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Report(IFormCollection form)
+    [HttpGet]
+    public async Task<IActionResult> Report(DateTime date)
     {
-      var date = DateTime.Parse(form["created"].ToString());
       var weeklyModels = HttpContext.Session.GetObject<List<DailyDetailModel>>("weeklyModel");
       var model = weeklyModels.Where(wk => wk.Created == date).ToList().FirstOrDefault();
 

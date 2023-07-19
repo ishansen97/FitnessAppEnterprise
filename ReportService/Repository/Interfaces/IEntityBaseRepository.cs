@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -18,7 +19,7 @@ namespace ReportService.Repository.Interfaces
 
     Task<T> AddAsync(T entity);
 
-    Task UpdateAsync(int id, T entity);
+    Task UpdateAsync(int id, T entity, DataSet dataset);
 
     Task DeleteAsync(int id);
   }

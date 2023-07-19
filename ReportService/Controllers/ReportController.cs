@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using ReportService.Model;
 using ReportService.Services.Interfaces;
 
@@ -12,6 +13,7 @@ namespace ReportService.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [Authorize]
   public class ReportController : ControllerBase
   {
     private readonly IReportService _reportService;
@@ -36,7 +38,7 @@ namespace ReportService.Controllers
     }
 
     // POST api/<ReportController>
-    [HttpPost("add")]
+    [HttpPost("add/")]
     public async Task<ActionResult<ReportResponseModel>> Post([FromBody] CreateReportRequestModel request)
     {
       if (request == null) return BadRequest();

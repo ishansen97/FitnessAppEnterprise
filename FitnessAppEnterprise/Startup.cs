@@ -41,6 +41,7 @@ namespace FitnessAppEnterprise
           config.ClientSecret = "mvc_client_secret";
           config.SaveTokens = true;
           config.ResponseType = "code";
+          config.SignedOutCallbackPath = "/Home/FirstPage";
 
           config.GetClaimsFromUserInfoEndpoint = true;
           config.Scope.Add("APIWorkout");
