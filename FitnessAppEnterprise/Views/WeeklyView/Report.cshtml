@@ -29,14 +29,14 @@
                     <div class="col-sm-4">@Model.Gap</div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Calorie Surplus?</label>
+                    <label class="col-sm-4 col-form-label">Calorie Deficit?</label>
                     <div class="col-sm-4">@Model.IsSurplus</div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button asp-action="Index" asp-controller="WeeklyView" type="button" 
+                <a asp-action="Index" asp-controller="WeeklyView" type="button" 
                         class="btn btn-secondary" 
-                        data-dismiss="modal">Close</button>
+                        data-dismiss="modal">Close</a>
             </div>
         </div>
     </div>

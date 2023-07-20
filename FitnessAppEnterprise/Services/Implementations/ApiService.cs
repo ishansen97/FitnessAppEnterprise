@@ -152,6 +152,23 @@ namespace FitnessAppEnterprise.Services.Implementations
       return response;
     }
 
+    public async Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, string id, T data)
+    {
+      var client = await InitializeHttpClient();
+      var contentString = JsonConvert.SerializeObject(data);
+      var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Put);
+      if (!string.IsNullOrEmpty(id))
+      {
+        endpointUrl = string.Concat(endpointUrl, "/", id);
+      }
+
+      HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Put, endpointUrl);
+      message.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+      var response = await client.SendAsync(message);
+
+      return response;
+    }
+
     public async Task<HttpResponseMessage> DeleteAsync(EndpointType endpointType, int id)
     {
       var endpointUrl = CreateEndpoint(endpointType, HttpMethod.Delete);

@@ -45,10 +45,13 @@ namespace AuthenticationService.ApiController
     {
     }
 
-    // PUT api/<AppUserController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    // PUT api/<AppUserController>/update/{userId}
+    [HttpPut("update/{userId}")]
+    public async Task<ActionResult> Put(string userId, [FromBody] AppUserModel request)
     {
+      if (request == null) return BadRequest();
+      await _userService.UpdateUser(userId, request);
+      return Ok();
     }
 
     // DELETE api/<AppUserController>/5

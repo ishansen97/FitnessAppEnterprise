@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model AuthenticationService.Model.UserModel
+@{
+    var errorMessage = string.Empty;
+    var userExist = false;
+    if (ViewData["userExist"] != null && bool.TryParse(ViewData["userData"].ToString(), out userExist))
+    {
+        errorMessage = $"The user {Model.FirstName}{Model.LastName} already exist.";
+    }
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-center">
+            <div class="card card-body box-shadow m-3">
+                <form asp-action="Register" method="post">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">First Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" asp-for="@Model.FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" asp-for="@Model.LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Age</label>
+                        <div class="col-sm-3">
+                            <input type="text" asp-for="@Model.Age" class="form-control" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Height (cm)</label>
+                        <div class="col-sm-3">
+                            <input type="text" asp-for="@Model.Height" class="form-control" />
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Weight (kg)</label>
+                        <div class="col-sm-3">
+                            <input type="text" asp-for="@Model.Weight" class="form-control" />
+                            <span asp-validation-for="Weight" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" asp-for="@Model.Password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Confirm Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row text-center">
+                        <button class="btn btn-success">Register</button>
+                    </div>
+                    @*error message*@
+                    @if (userExist)
+                    {
+                        <div class="row">
+                            <div class="alert alert-danger">
+                                <span>@errorMessage</span>
+                            </div>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

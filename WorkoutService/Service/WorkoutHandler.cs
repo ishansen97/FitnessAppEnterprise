@@ -120,7 +120,7 @@ namespace WorkoutService.Service
 
     public async Task<IEnumerable<WorkoutEditModel>> GetWeeklyWorkouts(string userId, ActivityAccessModel accessModel)
     {
-      var weeklyWorkouts = await GetEntitiesAsync(workout =>
+      var weeklyWorkouts = await GetEntitiesAsync(workout => workout.UserId == userId &&
         (workout.Created >= accessModel.StartDate) && (workout.Created <= accessModel.EndDate));
       if (weeklyWorkouts.Any())
       {

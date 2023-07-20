@@ -37,8 +37,7 @@ namespace AuthenticationService.Repository.Implementations
 
     public async Task<IdentityResult> UpdateAsync(string id, T entity)
     {
-      var user = await GetByIdAsync(id);
-      var result = await _userManager.UpdateAsync(user);
+      var result = await _userManager.UpdateAsync(entity);
       return result;
     }
   }

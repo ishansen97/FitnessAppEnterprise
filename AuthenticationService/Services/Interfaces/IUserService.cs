@@ -12,5 +12,7 @@ namespace AuthenticationService.Services.Interfaces
   public interface IUserService : IUserBaseRepository<AppUser>
   {
     Task<AppUserModel> GetUser(string userId);
+
+    Task UpdateUser(string userId, AppUserModel userModel);
   }
 }

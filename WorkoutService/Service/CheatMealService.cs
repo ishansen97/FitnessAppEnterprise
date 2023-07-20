@@ -83,7 +83,7 @@ namespace WorkoutService.Service
 
     public async Task<IEnumerable<CheatMealEditModel>> GetWeeklyCheatMeals(string userId, ActivityAccessModel accessModel)
     {
-      var cheatMeals = await GetEntitiesAsync(cheatMeal =>
+      var cheatMeals = await GetEntitiesAsync(cheatMeal => cheatMeal.UserId == userId &&
         (cheatMeal.Created >= accessModel.StartDate) && (cheatMeal.Created <= accessModel.EndDate));
       if (cheatMeals.Any())
       {

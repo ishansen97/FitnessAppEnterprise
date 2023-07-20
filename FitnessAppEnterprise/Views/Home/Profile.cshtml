@@ -1,0 +1,59 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h2 class="card-title">Edit Profile</h2>
+        <div class="card card-body box-shadow mb-3">
+            <form asp-action="Profile" method="post">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">First Name</label>
+                    <div class="col-sm-3">
+                        <input type="text" asp-for="@Model.FirstName" class="form-control"/>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Last Name</label>
+                    <div class="col-sm-3">
+                        <input type="text" asp-for="@Model.LastName" class="form-control"/>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">User Name</label>
+                    <div class="col-sm-3">
+                        <input type="text" value="@string.Concat(Model.FirstName,Model.LastName)" class="form-control" readonly="readonly"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Age</label>
+                    <div class="col-sm-3">
+                        <input type="text" asp-for="@Model.Age" class="form-control"/>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Height (cm)</label>
+                    <div class="col-sm-3">
+                        <input type="text" asp-for="@Model.Height" class="form-control"/>
+                        <span asp-validation-for="Height" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Weight (kg)</label>
+                    <div class="col-sm-3">
+                        <input type="text" asp-for="@Model.Weight" class="form-control"/>
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row col-sm-12 text-center">
+                    <button class="btn btn-success">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

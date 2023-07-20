@@ -71,12 +71,42 @@ namespace AuthenticationService.Controllers
     [HttpGet]
     public async Task<IActionResult> Register()
     {
-      return View(nameof(Login));
+      return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(LoginModel model)
+    public async Task<IActionResult> Register(UserModel model)
     {
+      if (ModelState.IsValid)
+      {
+        var appUser = new AppUser()
+        {
+          FirstName = model.FirstName,
+          LastName = model.LastName,
+          UserName = string.Concat(model.FirstName, model.LastName),
+          Age = model.Age,
+          Height = model.Height,
+          Weight = model.Weight,
+          Email = $"{model.FirstName}@gmail.com",
+        };
+
+        // check for existing user
+        var userExistResult = await _userManager.FindByNameAsync(appUser.UserName);
+        if (userExistResult != null)
+        {
+          ViewData["userExist"] = true;
+          return View(model);
+        }
+        var result = await _userManager.CreateAsync(appUser);
+        if (result.Succeeded)
+        {
+          var passwordResult = await _userManager.AddPasswordAsync(appUser, model.Password);
+          if (passwordResult.Succeeded)
+          {
+            return Redirect("https://localhost:44372");
+          }
+        }
+      }
       return View(nameof(Login));
     }
   }

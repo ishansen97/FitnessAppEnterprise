@@ -14,6 +14,7 @@ namespace FitnessAppEnterprise.Models.Enums
       WeeklyViews = 4,
       WorkoutTypes = 5,
       CheatMeals = 6,
-      CheatMealTypes = 7
+      CheatMealTypes = 7,
+      User = 8
     }
 }

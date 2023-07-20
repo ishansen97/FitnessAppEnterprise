@@ -86,10 +86,10 @@ namespace ReportService.Repository.Implementations
       }
       DataTable dataTable = dataSet.Tables[0];
 
-      if (!Exists(dataSet, report.Created))
+      if (!Exists(dataSet, report))
       {
         var newId = dataTable.Rows.Count + 1;
-        dataTable.Rows.Add(newId, report.CalorieExpenditure, report.CalorieIntake, report.IsSurplus, report.Created);
+        dataTable.Rows.Add(newId, report.UserId, report.CalorieExpenditure, report.CalorieIntake, report.IsSurplus, report.Created);
         dataSet.WriteXml(_fullPath);
         return report as T;
       }
@@ -105,6 +105,7 @@ namespace ReportService.Repository.Implementations
     {
       var dataTable = new DataTable("Report");
       dataTable.Columns.Add(nameof(Report.Id), typeof(int));
+      dataTable.Columns.Add(nameof(Report.UserId), typeof(string));
       dataTable.Columns.Add(nameof(Report.CalorieExpenditure), typeof(double));
       dataTable.Columns.Add(nameof(Report.CalorieIntake), typeof(double));
       dataTable.Columns.Add(nameof(Report.IsSurplus), typeof(bool));
@@ -121,7 +122,8 @@ namespace ReportService.Repository.Implementations
       for (int i = 0; i < table.Rows.Count; i++)
       {
         var row = table.Rows[i];
-        if (DateTime.TryParse(row["Created"].ToString(), out var existingDate) && existingDate == report.Created)
+        if ((DateTime.TryParse(row["Created"].ToString(), out var existingDate) && existingDate == report.Created) &&
+            (row["UserId"].ToString() == report.UserId))
         {
           selectedRow = row;
           break;
@@ -147,13 +149,14 @@ namespace ReportService.Repository.Implementations
       //await _context.SaveChangesAsync();
     }
 
-    private bool Exists(DataSet dataset, DateTime created)
+    private bool Exists(DataSet dataset, Report report)
     {
       var table = dataset.Tables[0];
       for (int i = 0; i < table.Rows.Count; i++)
       {
         var row = table.Rows[i];
-        if (DateTime.TryParse(row["Created"].ToString(), out var existingId) && existingId == created)
+        if ((DateTime.TryParse(row["Created"].ToString(), out var existingId) && existingId == report.Created) &&
+            (row["UserId"].ToString() == report.UserId))
         {
           return true;
         }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FitnessAppEnterprise.Models.Enums;
 using FitnessAppEnterprise.Services.Interfaces;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
@@ -52,11 +53,34 @@ namespace FitnessAppEnterprise.Controllers
       return View(countModel);
     }
 
-    public async Task<IActionResult> Privacy()
+    [HttpGet]
+    public async Task<IActionResult> Profile()
     {
-      var accessToken = await HttpContext.GetTokenAsync("access_token");
-      return View();
+      var userModel =
+        await _remoteService.GetSingleModelDataAsync<UserModel>(EndpointType.User, HttpMethod.Get, param: GetUserId());
+      if (userModel == null)
+      {
+        return RedirectToAction(nameof(Index));
+      }
+      return View(userModel);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Profile(UserModel model)
+    {
+      if (ModelState.IsValid)
+      {
+        var response = await _remoteService.PutDataAsync(EndpointType.User, GetUserId(), model);
+        if (response.IsSuccessStatusCode)
+        {
+          return RedirectToAction(nameof(Index));
+        }
+      }
+      
+      return View(model);
+    }
+
+
 
     public IActionResult Logout()
     {

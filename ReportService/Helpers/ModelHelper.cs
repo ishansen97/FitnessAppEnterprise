@@ -8,7 +8,7 @@ using ReportService.Entity;
 using ReportService.Model;
 using ReportService.Model.Enums;
 
-namespace PredictionsService.Helpers
+namespace ReportService.Helpers
 {
   public class ModelHelper
   {

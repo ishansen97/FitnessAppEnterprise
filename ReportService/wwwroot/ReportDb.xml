@@ -2,23 +2,10 @@
 <Reports>
   <Report>
     <Id>1</Id>
-    <CalorieExpenditure>0</CalorieExpenditure>
-    <CalorieIntake>2000</CalorieIntake>
+    <UserId>df0ca227-b420-4437-b5fd-8cc75df6a70f</UserId>
+    <CalorieExpenditure>1863</CalorieExpenditure>
+    <CalorieIntake>1350</CalorieIntake>
     <IsSurplus>false</IsSurplus>
-    <Created>2023-07-19T00:00:00+05:30</Created>
-  </Report>
-  <Report>
-    <Id>2</Id>
-    <CalorieExpenditure>0</CalorieExpenditure>
-    <CalorieIntake>4080</CalorieIntake>
-    <IsSurplus>False</IsSurplus>
-    <Created>7/9/2023 12:00:00 AM</Created>
-  </Report>
-  <Report>
-    <Id>3</Id>
-    <CalorieExpenditure>2688</CalorieExpenditure>
-    <CalorieIntake>0</CalorieIntake>
-    <IsSurplus>True</IsSurplus>
-    <Created>7/12/2023 12:00:00 AM</Created>
+    <Created>2023-07-17T00:00:00+05:30</Created>
   </Report>
 </Reports>

@@ -34,5 +34,12 @@ namespace AuthenticationService.Services.Implementations
 
       return null;
     }
+
+    public async Task UpdateUser(string userId, AppUserModel userModel)
+    {
+      var user = await GetByIdAsync(userId);
+      _modelHelper.PopulateAppUserFromModel(userModel, user);
+      await UpdateAsync(userId, user);
+    }
   }
 }

@@ -24,5 +24,29 @@ namespace AuthenticationService.Helpers
 
       return userModel;
     }
+
+    public AppUser GetAppUserFromModel(AppUserModel model)
+    {
+      var user = new AppUser
+      {
+        Id = model.UserId,
+        FirstName = model.FirstName,
+        LastName = model.LastName,
+        Age = model.Age,
+        Height = model.Height,
+        Weight = model.Weight
+      };
+
+      return user;
+    }
+
+    public void PopulateAppUserFromModel(AppUserModel model, AppUser user)
+    {
+      user.FirstName = model.FirstName;
+      user.LastName = model.LastName;
+      user.Age = model.Age;
+      user.Height = model.Height;
+      user.Weight = model.Weight;
+    }
   }
 }

@@ -28,6 +28,8 @@ namespace FitnessAppEnterprise.Services.Interfaces
 
     Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, int id, T data);
 
+    Task<HttpResponseMessage> PutDataAsync<T>(EndpointType endpointType, string id, T data);
+
     Task<HttpResponseMessage> DeleteAsync(EndpointType endpointType, int id);
   }
 }

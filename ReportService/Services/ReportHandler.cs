@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using PredictionsService.Helpers;
 using ReportService.Context;
 using ReportService.Entity;
+using ReportService.Helpers;
 using ReportService.Model;
 using ReportService.Model.Enums;
 using ReportService.Repository.Implementations;
@@ -48,6 +48,7 @@ namespace ReportService.Services
         report = new Report()
         {
           Id = model.Id,
+          UserId = model.UserId,
           CalorieExpenditure = calorieResponse.CalorieExpenditure,
           CalorieIntake = calorieResponse.CalorieIntake,
           IsSurplus = calorieResponse.IsSurplus,

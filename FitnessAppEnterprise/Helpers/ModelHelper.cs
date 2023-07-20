@@ -44,6 +44,11 @@ namespace FitnessAppEnterprise.Helpers
           //endpointUrl = "cheatmealtypes";
           endpointUrl = "CheatMealTypesService";
           break;
+        case EndpointType.User:
+          //endpointUrl = "cheatmealtypes";
+          endpointUrl = "AuthenticationService";
+          break;
+
 
       }
 

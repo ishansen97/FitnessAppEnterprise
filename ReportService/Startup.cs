@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PredictionsService.Helpers;
+using ReportService.Helpers;
 using ReportService.Services;
 using ReportService.Services.Interfaces;
 

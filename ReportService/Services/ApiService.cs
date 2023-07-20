@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using PredictionsService.Helpers;
+using ReportService.Helpers;
 using ReportService.Model.Enums;
 using ReportService.Services.Interfaces;
 

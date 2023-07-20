@@ -8,6 +8,8 @@ namespace ReportService.Entity
 {
   public class Report : EntityBase
   {
+    public string UserId { get; set; }
+
     public double CalorieExpenditure { get; set; }
 
     public double CalorieIntake { get; set; }

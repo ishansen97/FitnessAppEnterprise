@@ -31,40 +31,40 @@ namespace AuthenticationService.Data
         AddIdentityServerData(configurationDbContext);
 
         // update client
-        var client = configurationDbContext.Clients.FirstOrDefault(client => client.ClientId == "mvc_client");
-        var currentClient = IdentityServerConfiguration.GetClients().ToList()[0];
-        var entityClient = currentClient.ToEntity();
-        client.AllowedScopes = entityClient.AllowedScopes;
-        //var scopes = client.AllowedScopes;
-        //client.AllowedScopes.AddRange(new List<ClientScope>()
+        //var client = configurationDbContext.Clients.FirstOrDefault(client => client.ClientId == "mvc_client");
+        //var currentClient = IdentityServerConfiguration.GetClients().ToList()[0];
+        //var entityClient = currentClient.ToEntity();
+        //client.AllowedScopes = entityClient.AllowedScopes;
+        ////var scopes = client.AllowedScopes;
+        ////client.AllowedScopes.AddRange(new List<ClientScope>()
+        ////{
+        ////  new ClientScope() {Scope = "APIWeeklyView"},
+        ////  new ClientScope() {Scope = "APIReport"}
+        ////});
+        //configurationDbContext.Update(client);
+        //configurationDbContext.SaveChanges();
+
+        //// add new api resources
+        //var apiResources = IdentityServerConfiguration.GetApiResources().Skip(2).ToList();
+        //foreach (var apiResource in apiResources)
         //{
-        //  new ClientScope() {Scope = "APIWeeklyView"},
-        //  new ClientScope() {Scope = "APIReport"}
-        //});
-        configurationDbContext.Update(client);
-        configurationDbContext.SaveChanges();
+        //  configurationDbContext.ApiResources.Add(apiResource.ToEntity());
+        //}
+        //configurationDbContext.SaveChanges();
 
-        // add new api resources
-        var apiResources = IdentityServerConfiguration.GetApiResources().Skip(2).ToList();
-        foreach (var apiResource in apiResources)
-        {
-          configurationDbContext.ApiResources.Add(apiResource.ToEntity());
-        }
-        configurationDbContext.SaveChanges();
-
-        // add new api scopes
-        var apiScopes = IdentityServerConfiguration.GetApiScopes().Skip(2).ToList();
-        foreach (var apiScope in apiScopes)
-        {
-          configurationDbContext.ApiScopes.Add(apiScope.ToEntity());
-        }
-        configurationDbContext.SaveChanges();
+        //// add new api scopes
+        //var apiScopes = IdentityServerConfiguration.GetApiScopes().Skip(2).ToList();
+        //foreach (var apiScope in apiScopes)
+        //{
+        //  configurationDbContext.ApiScopes.Add(apiScope.ToEntity());
+        //}
+        //configurationDbContext.SaveChanges();
 
 
         var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
         context.Database.Migrate();
 
-        //AddBusinessData(context, serviceScope).GetAwaiter().GetResult();
+        AddBusinessData(context, serviceScope).GetAwaiter().GetResult();
       }
     }
 
@@ -72,11 +72,11 @@ namespace AuthenticationService.Data
     {
       #region Initializing users
 
-      var user1 = context.Users.Where(user => user.UserName == "IshanSen").FirstOrDefault();
-      var user2 = context.Users.Where(user => user.UserName == "JohnWick").FirstOrDefault();
+      //var user1 = context.Users.Where(user => user.UserName == "IshanSen").FirstOrDefault();
+      //var user2 = context.Users.Where(user => user.UserName == "JohnWick").FirstOrDefault();
 
-      context.Users.RemoveRange(user1, user2);
-      await context.SaveChangesAsync();
+      //context.Users.RemoveRange(user1, user2);
+      //await context.SaveChangesAsync();
 
       var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
