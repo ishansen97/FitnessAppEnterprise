@@ -6,8 +6,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutTypesService/",
@@ -20,8 +21,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutTypesService/{id}",
@@ -34,8 +36,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService",
@@ -48,8 +51,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/{id}",
@@ -62,8 +66,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/count/{userId}",
@@ -76,8 +81,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/details/{userId}",
@@ -90,8 +96,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/editDetail/{id}",
@@ -104,8 +111,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/user/{userId}",
@@ -118,8 +126,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/add",
@@ -132,8 +141,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/update/{id}",
@@ -146,8 +156,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/delete/{id}",
@@ -160,8 +171,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/exercisemeasurement/{workoutType}",
@@ -174,8 +186,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WorkoutService/weeklyview/{userId}",
@@ -188,8 +201,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService",
@@ -202,8 +216,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/{id}",
@@ -216,8 +231,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/details/{userId}",
@@ -230,8 +246,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/editdetail/{id}",
@@ -244,8 +261,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/user/{userId}",
@@ -258,8 +276,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/update/{id}",
@@ -272,8 +291,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/add",
@@ -286,8 +306,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/delete/{id}",
@@ -300,8 +321,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/mealmeasurement/{mealType}",
@@ -314,8 +336,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealsService/weeklyview/{userId}",
@@ -328,8 +351,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44379
+          //"Host": "localhost",
+          //"Port": 44379
+          "Host": "eadfitnessworkout.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/CheatMealTypesService/",
@@ -342,8 +366,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44367
+          //"Host": "localhost",
+          //"Port": 44367
+          "Host": "eadfitnessprediction.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService",
@@ -356,8 +381,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44367
+          //"Host": "localhost",
+          //"Port": 44367
+          "Host": "eadfitnessprediction.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/minimumcount/",
@@ -370,8 +396,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44367
+          //"Host": "localhost",
+          //"Port": 44367
+          "Host": "eadfitnessprediction.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/predict/",
@@ -384,8 +411,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44367
+          //"Host": "localhost",
+          //"Port": 44367
+          "Host": "eadfitnessprediction.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/add",
@@ -397,8 +425,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44367
+          //"Host": "localhost",
+          //"Port": 44367
+          "Host": "eadfitnessprediction.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/PredictionsService/calorie/{userId}",
@@ -410,8 +439,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44384
+          //"Host": "localhost",
+          //"Port": 44384
+          "Host": "eadfitnessauthserver.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/AuthenticationService",
@@ -424,8 +454,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44384
+          //"Host": "localhost",
+          //"Port": 44384
+          "Host": "eadfitnessauthserver.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/AuthenticationService/{userId}",
@@ -438,8 +469,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44384
+          //"Host": "localhost",
+          //"Port": 44384
+          "Host": "eadfitnessauthserver.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/AuthenticationService/update/{userId}",
@@ -452,8 +484,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44317
+          //"Host": "localhost",
+          //"Port": 44317
+          "Host": "eadfitnessweeklyview.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WeeklyViewService",
@@ -466,8 +499,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44317
+          //"Host": "localhost",
+          //"Port": 44317
+          "Host": "eadfitnessweeklyview.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/WeeklyViewService/details/",
@@ -480,8 +514,9 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44344
+          //"Host": "localhost",
+          //"Port": 44344
+          "Host": "eadfitnessreport.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/ReportService",
@@ -493,13 +528,13 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44344
+          //"Host": "localhost",
+          //"Port": 44344
+          "Host": "eadfitnessreport.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/apigateway/ReportService/add/",
       "UpstreamHttpMethod": [ "POST" ]
     }
-
   ]
 }

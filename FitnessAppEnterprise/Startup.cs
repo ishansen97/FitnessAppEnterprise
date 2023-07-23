@@ -36,7 +36,7 @@ namespace FitnessAppEnterprise
         .AddCookie("Cookie")
         .AddOpenIdConnect("oidc", config =>
         {
-          config.Authority = "https://localhost:44384/";
+          config.Authority = "https://eadfitnessauthserver.azurewebsites.net/";
           config.ClientId = "mvc_client";
           config.ClientSecret = "mvc_client_secret";
           config.SaveTokens = true;

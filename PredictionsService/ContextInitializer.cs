@@ -22,37 +22,37 @@ namespace PredictionsService
         context.Database.Migrate();
 
         NewConstantAddition(context);
-
-        //if (!context.PredictionConstants.Any())
-        //{
-        //  var predictionConstant = new PredictionConstant()
-        //  {
-        //    Name = AppConstants.MinimumActivityCount,
-        //    Value = "3"
-        //  };
-
-        //  context.PredictionConstants.Add(predictionConstant);
-        //  context.SaveChanges();
-        //}
       }
     }
 
     private static void NewConstantAddition(PredictionDbContext context)
     {
-      var kiloPerCalorie = new PredictionConstant
+      if (!context.PredictionConstants.Any())
       {
-        Name = AppConstants.KiloPerCalorie,
-        Value = "0.00013"
-      };
+        var predictionConstant = new PredictionConstant()
+        {
+          Name = AppConstants.MinimumActivityCount,
+          Value = "3"
+        };
 
-      var calorieWeightFactor = new PredictionConstant
-      {
-        Name = AppConstants.CalorieWeightFactor,
-        Value = "0.06"
-      };
+        var kiloPerCalorie = new PredictionConstant
+        {
+          Name = AppConstants.KiloPerCalorie,
+          Value = "0.00013"
+        };
 
-      context.PredictionConstants.AddRange(new PredictionConstant[] { kiloPerCalorie, calorieWeightFactor });
-      context.SaveChanges();
+        var calorieWeightFactor = new PredictionConstant
+        {
+          Name = AppConstants.CalorieWeightFactor,
+          Value = "0.06"
+        };
+
+        //context.PredictionConstants.Add(predictionConstant);
+        context.PredictionConstants.AddRange(new PredictionConstant[] { predictionConstant, kiloPerCalorie, calorieWeightFactor });
+        context.SaveChanges();
+      }
+
+      //context.SaveChanges();
     }
   }
 }

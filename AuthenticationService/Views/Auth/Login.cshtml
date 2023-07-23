@@ -11,45 +11,62 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <style>
+        body {
+            background-image: url("https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg");
+            background-repeat: round;
+        }
+        .card-body {
+            backdrop-filter: brightness(0.7);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="display-4">Welcome</h1>
-
+        
         <form asp-controller="Auth" asp-action="Login" method="post">
             <input type="hidden" asp-for="ReturnUrl" />
-            <div class="card card-body">
-                <div class="text-lg-center">
-                    <div class="form-group row">
-                        <div class="col-4">
-                            <label class="col-form-label">User Name</label>
+            <div class="card bg-transparent box-shadow mt-3 mb-3">
+                <div class="card-header bg-white text-center">
+                    <h4 class="card-title">FitTracker</h4>
+                </div>
+                <div class="card-body text-white">
+                    <div class="text-lg-center">
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="col-form-label">User Name</label>
+                            </div>
+                            <div class="col-4 float-right">
+                                <input type="text" asp-for="UserName" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="col-4 float-right">
-                            <input type="text" asp-for="UserName" />
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="col-form-label">Password</label>
+                            </div>
+                            <div class="col-4 float-right">
+                                <input type="password" asp-for="Password" class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4">
-                            <label class="col-form-label">Password</label>
-                        </div>
-                        <div class="col-4 float-right">
-                            <input type="password" asp-for="Password" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="text-center">
-                            <button id="btnLogin" class="btn btn-danger">Login</button>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <button id="btnLogin" class="btn btn-danger">Login</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         
-        <div class="text-center">
-            <div class="form-group row">
-                <label class="col-sm-4 text-secondary">New User?</label> 
-                <div class="col-sm-3">
-                    <a asp-action="Register" class="btn btn-link">Register</a>
+        <div class="card card-body box-shadow mb-2">
+            <div class="text-center">
+                <div class="form-group row">
+                    <label class="col-sm-4 text-secondary h4">New User?</label> 
+                    <div class="col-sm-3">
+                        <a asp-action="Register" class="btn btn-link">
+                            <span class="h5">Register</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

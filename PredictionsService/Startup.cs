@@ -41,7 +41,7 @@ namespace PredictionsService
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
-          config.Authority = "https://localhost:44384";
+          config.Authority = "https://eadfitnessauthserver.azurewebsites.net";
           config.Audience = "APIPredictions";
         });
 
@@ -64,6 +64,7 @@ namespace PredictionsService
       services.AddSingleton<ModelHelper>();
       services.AddScoped<PredictionEngine>();
       services.AddScoped<CalorieCounter>();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +85,13 @@ namespace PredictionsService
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+      });
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Prediction Service");
+        options.RoutePrefix = string.Empty;
       });
 
       // initialize the database.

@@ -7,40 +7,52 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <style>
+        body {
+            background-image: url("https://cdn.pixabay.com/photo/2020/03/23/17/14/run-4961494_1280.jpg");
+            background-repeat: round;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-5 text-primary">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessAppEnterprise</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="text-white">FitnessAppEnterprise</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Workout" asp-action="AddWorkout">Workouts</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Workout" asp-action="AddWorkout">Workouts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Predictions" asp-action="Predictions">Predictions</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="CheatMeal" asp-action="CheatMealHome">Cheat Meals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="WeeklyView" asp-action="Index">Weekly View</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Predictions" asp-action="Predictions">Predictions</a>
                             </li>
-                            <li class="nav-item float-right">
-                                <a class="btn-danger text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="WeeklyView" asp-action="Index">Weekly View</a>
                             </li>
                         }
                     </ul>
+                    <a class="btn btn-danger text-white my-2 my-sm-0"asp-controller="Home" asp-action="Logout">
+                        <i class="bi bi-box-arrow-in-right">Logout</i>
+                    </a>
+
                 </div>
             </div>
         </nav>

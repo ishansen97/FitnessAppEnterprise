@@ -40,13 +40,13 @@ namespace WorkoutService
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
-          config.Authority = "https://localhost:44384";
+          config.Authority = "https://eadfitnessauthserver.azurewebsites.net";
           config.Audience = "APIWorkout";
           config.TokenValidationParameters = new TokenValidationParameters()
           {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidIssuer = "https://localhost:44384",
+            ValidIssuer = "https://eadfitnessauthserver.azurewebsites.net",
             ValidAudience = "APIWorkout",
           };
         });
@@ -66,6 +66,7 @@ namespace WorkoutService
       services.AddScoped<IMealMeasurementService, MealMeasurementService>();
       services.AddSingleton<WorkoutTypeHelper>();
       services.AddSingleton<WorkoutModelHelper>();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +87,13 @@ namespace WorkoutService
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+      });
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Workout and CheatMeal Server");
+        options.RoutePrefix = string.Empty;
       });
 
       // initialize the app

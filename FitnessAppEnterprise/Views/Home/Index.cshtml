@@ -7,13 +7,13 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome To FitnessTracker - @ViewData["userName"]</h1>
+    <h1 class="display-4 text-white">Welcome To FitnessTracker - @ViewData["userName"]</h1>
     
     <div class="row">
         <div class="col-5">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title text-primary">Workout Days</h3>
+                <div class="card-header bg-dark text-white">
+                    <h3 class="card-title">Workout Days</h3>
                 </div>
                 <div class="card-body text-center">
                     <a asp-controller="Details" asp-action="Details" asp-route-id="@workoutParam">
@@ -26,8 +26,8 @@
         
         <div class="col-5">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title text-primary">Cheat Meal Days</h3>
+                <div class="card-header bg-dark text-white">
+                    <h3 class="card-title">Cheat Meal Days</h3>
                 </div>
                 <div class="card-body text-center">
                     <a asp-controller="Details" asp-action="Details" asp-route-id="@cheatMealParam">

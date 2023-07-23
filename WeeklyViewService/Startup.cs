@@ -32,7 +32,7 @@ namespace WeeklyViewService
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
-          config.Authority = "https://localhost:44384";
+          config.Authority = "https://eadfitnessauthserver.azurewebsites.net";
           config.Audience = "APIWeeklyView";
         });
 
@@ -53,6 +53,7 @@ namespace WeeklyViewService
       services.AddSingleton<ModelHelper>();
       services.AddScoped<IWeeklyViewService, WeeklyViewHandler>();
       services.AddScoped<IRemoteService, ApiService>();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +74,13 @@ namespace WeeklyViewService
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+      });
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Weekly View Server");
+        options.RoutePrefix = string.Empty;
       });
     }
   }

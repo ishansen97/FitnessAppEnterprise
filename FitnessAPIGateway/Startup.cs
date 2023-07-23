@@ -29,6 +29,7 @@ namespace FitnessAPIGateway
     {
       services.AddControllers();
       services.AddOcelot();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +52,12 @@ namespace FitnessAPIGateway
       });
 
       app.UseOcelot().Wait();
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API Gateway Server");
+      });
     }
   }
 }

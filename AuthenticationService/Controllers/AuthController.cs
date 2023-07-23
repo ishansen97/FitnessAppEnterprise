@@ -103,7 +103,9 @@ namespace AuthenticationService.Controllers
           var passwordResult = await _userManager.AddPasswordAsync(appUser, model.Password);
           if (passwordResult.Succeeded)
           {
-            return Redirect("https://localhost:44372");
+            // mvc project home page
+            //return Redirect("https://localhost:44372");
+            return Redirect("https://eadfitnessmvc.azurewebsites.net");
           }
         }
       }

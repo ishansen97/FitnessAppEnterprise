@@ -35,8 +35,8 @@ namespace AuthenticationService.Configurations
             IdentityServerConstants.StandardScopes.OpenId,
             IdentityServerConstants.StandardScopes.Profile,
           },
-          RedirectUris = { "https://localhost:44372/signin-oidc" },
-          PostLogoutRedirectUris = { "https://localhost:44372/Home/FirstPage" },
+          RedirectUris = { "https://eadfitnessmvc.azurewebsites.net/signin-oidc" },
+          PostLogoutRedirectUris = { "https://eadfitnessmvc.azurewebsites.net/FirstPage" },
           AllowOfflineAccess = true
         }
       };

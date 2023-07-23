@@ -17,6 +17,7 @@ using AuthenticationService.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
+using Microsoft.IdentityModel.Logging;
 
 namespace AuthenticationService
 {
@@ -79,6 +80,7 @@ namespace AuthenticationService
       services.AddScoped<IUserService, UserService>();
       services.AddSingleton<ModelHelper>();
       services.AddControllers();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +88,7 @@ namespace AuthenticationService
     {
       if (env.IsDevelopment())
       {
+        IdentityModelEventSource.ShowPII = true;
         app.UseDeveloperExceptionPage();
       }
       else
@@ -108,6 +111,13 @@ namespace AuthenticationService
           name: "default",
           pattern: "{controller=Home}/{action=Index}/{id?}");
         endpoints.MapControllers();
+      });
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Server");
+        options.RoutePrefix = string.Empty;
       });
 
       // this is to initialize the database.

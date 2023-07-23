@@ -32,7 +32,7 @@ namespace ReportService
       services.AddAuthentication("Bearer")
         .AddJwtBearer("Bearer", config =>
         {
-          config.Authority = "https://localhost:44384";
+          config.Authority = "https://eadfitnessauthserver.azurewebsites.net";
           config.Audience = "APIReport";
         });
 
@@ -52,6 +52,7 @@ namespace ReportService
       services.AddScoped<IReportService, ReportHandler>();
       services.AddScoped<IRemoteService, ApiService>();
       services.AddSingleton<ModelHelper>();
+      services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +74,13 @@ namespace ReportService
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+      });
+
+      app.UseSwagger();
+      app.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Report Server");
+        options.RoutePrefix = string.Empty;
       });
     }
   }
